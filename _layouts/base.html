@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ page.title }} | {{ site.title }}</title>
+
+  <!-- Tabler CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-flags.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-payments.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-social.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-vendors.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+
+  <!-- Custom Theme CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/theme.min.css' | relative_url }}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Akronim&family=DynaPuff:wght@400..700&family=Nova+Square&family=Syne+Mono&display=swap" rel="stylesheet">
+
+  <!-- Inline Styles -->
+  <style>
+    :root {
+      --tblr-font-sans-serif: "DynaPuff";
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Include -->
+  {% include header.html %}
+
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+    <div class="page-body">
+      <main class="container-xl">
+        {{ content }}
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer Include -->
+  {% include footer.html %}
+
+  <!-- Tabler JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/js/tabler.min.js"></script>
+
+  <!-- Custom Theme JS -->
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+</body>
+</html>
