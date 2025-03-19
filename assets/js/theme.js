@@ -4,25 +4,28 @@
  * This will prevent any flashes of the light theme (default) before switching.
  */
 
-const themeStorageKey = "tablerTheme"
-const defaultTheme = "light"
-let selectedTheme
+const THEME_STORAGE_KEY = "tablerTheme";
+const defaultTheme = "light";
+let selectedTheme;
 
 // https://stackoverflow.com/a/901144
+// Create a Proxy for URLSearchParams to simplify access to query parameters.
+// This allows us to use `params.key` instead of `params.get('key')`.
 const params = new Proxy(new URLSearchParams(window.location.search), {
-	get: (searchParams, prop) => searchParams.get(prop),
-})
+	get: (searchParams, prop) => searchParams.get(prop)
+});
 
-if (!!params.theme) {
-	localStorage.setItem(themeStorageKey, params.theme)
-	selectedTheme = params.theme
+if (params.theme) {
+  localStorage.setItem(THEME_STORAGE_KEY, params.theme);
+  selectedTheme = params.theme;
 } else {
-	const storedTheme = localStorage.getItem(themeStorageKey)
-	selectedTheme = storedTheme ? storedTheme : defaultTheme
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  selectedTheme = storedTheme || defaultTheme;
 }
 
-if (selectedTheme === 'dark') {
-	document.body.setAttribute("data-bs-theme", selectedTheme)
-} else {
-	document.body.removeAttribute("data-bs-theme")
+// Apply the selected theme to the document body
+if (selectedTheme === "dark") {
+  document.body.setAttribute("data-bs-theme", "dark");
+} else if (selectedTheme === "light") {
+  document.body.setAttribute("data-bs-theme", "light");
 }
