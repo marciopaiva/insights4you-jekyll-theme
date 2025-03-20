@@ -1,7 +1,7 @@
 Gem::Specification.new do |spec|
   spec.name          = "insights4you-jekyll-theme"
   spec.version       = "0.1.0" 
-  spec.authors       = File.exist?("CONTRIBUTORS.txt") ? File.readlines("CONTRIBUTORS.txt", chomp: true) : ["Marcio Paiva Barbosa"]
+  spec.authors       = ["Marcio Paiva Barbosa"]
   spec.email         = ["mpaivabarbosa@gmail.com"]
 
   spec.summary       = "A sleek and modern Jekyll theme inspired by the Tabler Admin Dashboard."
@@ -9,8 +9,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/marciopaiva/insights4you-jekyll-theme"
   spec.license       = "MIT"
 
-  spec.files         = Dir["{assets,layouts,includes,config,README.md}/**/*"]
-  spec.require_paths = ["lib"]
+  spec.files         = `git ls-files -z`.split("\x0").select { |f|
+    f.match(%r!^((_(includes|layouts|sass|(data\/(locales|origin)))|assets)\/|README|LICENSE)!i)
+  }
 
   spec.metadata = {
     "bug_tracker_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/issues",
@@ -26,7 +27,4 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "jekyll-seo-tag", "~> 2.8"
 
   spec.add_development_dependency "bundler", "~> 2.4"
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "nokogiri", "~> 1.15"
 end
