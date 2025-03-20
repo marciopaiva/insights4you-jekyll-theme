@@ -23,4 +23,10 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = "~> 3.1"
 
   spec.add_runtime_dependency "jekyll", ">= 3.9", "< 5.0"
+  spec.add_runtime_dependency "jekyll-seo-tag", "~> 2.8"
+
+  spec.add_development_dependency "bundler", "~> 2.4"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "nokogiri", "~> 1.15"
 end
