@@ -1,18 +1,16 @@
-name: Ruby Gem
+name: Ruby Gem Publish
 
-# This workflow automates the process of building and publishing the Ruby gem.
-# It triggers on pushes to the "main" branch or pull requests targeting "main".
-# The workflow builds the gem and publishes it to both GitHub Packages (GPR) and RubyGems.
+# This workflow automates the process of publishing the Ruby gem.
+# It triggers only when a tag is created.
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - "v*" # Trigger only when a tag starting with "v" is created (e.g., v1.0.0)
 
 jobs:
-  build:
-    name: Build + Publish
+  publish:
+    name: Publish Gem
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,7 +30,6 @@ jobs:
         touch $HOME/.gem/credentials
         chmod 0600 $HOME/.gem/credentials
         printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-        # Build and push the gem to GitHub Packages
         gem build *.gemspec
         gem push --key github --host https://rubygems.pkg.github.com/${OWNER} *.gem
       env:
@@ -46,7 +43,6 @@ jobs:
         touch $HOME/.gem/credentials
         chmod 0600 $HOME/.gem/credentials
         printf -- "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}\n" > $HOME/.gem/credentials
-        # Build and push the gem to RubyGems
         gem build *.gemspec
         gem push *.gem
       env:
