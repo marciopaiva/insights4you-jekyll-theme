@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mpaivabarbosa@gmail.com"]
 
   spec.summary       = "A sleek and modern Jekyll theme inspired by the Tabler Admin Dashboard."
-  spec.description   = "A professional and responsive Jekyll theme designed for documentation sites, admin panels, and project showcases. It includes customizable layouts, modern design elements, and support for responsive design to ensure compatibility across devices."
+  spec.description   = "A sleek and modern Jekyll theme inspired by the [Tabler Admin Dashboard](https://github.com/tabler). This theme offers a clean, professional, and responsive interface, making it ideal for developers, content creators, and businesses. Whether you're building documentation sites, admin panels, or project showcases, this theme provides a minimal-effort solution with customizable layouts and modern design elements."
   spec.homepage      = "https://github.com/marciopaiva/insights4you-jekyll-theme"
   spec.license       = "MIT"
 
