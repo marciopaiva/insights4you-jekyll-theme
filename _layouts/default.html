@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <meta name="author" content="{{ site.author.name }}">
+  <meta name="keywords" content="{{ page.keywords | default: site.keywords }}">
+  <title>{{ page.title | default: site.title }}</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="{{ '/assets/images/favicon.ico' | relative_url }}" type="image/x-icon">
 
   <!-- Tabler CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler.min.css">
@@ -22,15 +28,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Akronim&family=DynaPuff:wght@400..700&family=Nova+Square&family=Syne+Mono&display=swap" rel="stylesheet">
 
+  {% seo %}
 </head>
 <body>
   <!-- Header Include -->
-  {% include header.html %}
+  {% include header-logo.html %}
+  {% include header-navbar.html %}
 
   <!-- Page Wrapper -->
-  <div class="page-wrapper">
+  <div class="page-wrapper" role="main">
     <div class="page-body">
-      <main class="container-xl">
+      <main class="container-xl" role="main" aria-label="Main Content">
         {{ content }}
       </main>
     </div>
@@ -40,9 +48,9 @@
   {% include footer.html %}
 
   <!-- Tabler JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/js/tabler.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/js/tabler.min.js" defer></script>
 
   <!-- Custom Theme JS -->
-  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
 </body>
 </html>
