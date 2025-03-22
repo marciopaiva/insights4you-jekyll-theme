@@ -102,45 +102,78 @@
           data-bs-toggle="dropdown"
           aria-label="Show Notifications"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            fill="none"
-            class="icon icon-1"
-          >
+          <svg class="icon icon-1" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none">
             <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
             <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
           </svg>
-          <span class="badge bg-red">{{ site.data.notifications | size }}</span>
+          <span id="notification-badge" class="badge bg-red"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Last Updates</h3>
             </div>
-            <div class="list-group list-group-flush list-group-hoverable">
-              {% for notification in site.data.notifications %}
-                <div class="list-group-item">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <span class="status-dot bg-{{ notification.color }} d-block"></span>
-                    </div>
-                    <div class="col text-truncate">
-                      <a href="{{ notification.link | relative_url }}" class="text-body d-block">{{ notification.title }}</a>
-                      <div class="text-secondary text-truncate mt-n1">
-                        {{ notification.description }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
+            <div id="notifications-list" class="list-group list-group-flush"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header>
+
+<!-- Script para Carregar Notificações -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const notificationsList = document.getElementById('notifications-list');
+    const badge = document.getElementById('notification-badge');
+
+    // Ensure the elements exist before proceeding
+    if (!notificationsList || !badge) {
+      console.warn('Notification elements not found in the DOM.');
+      return;
+    }
+
+    // Dados locais (via Jekyll)
+    const localNotifications = {{ site.data.notifications | jsonify }};
+
+    // Busca notificações remotas (YAML do GitHub)
+    let remoteNotifications = [];
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/marciopaiva/insights4you-jekyll-theme/main/_data/notifications.yml');
+      const yamlText = await response.text();
+      remoteNotifications = jsyaml.load(yamlText) || [];
+    } catch (error) {
+      console.warn('Failed to fetch remote notifications:', error);
+    }
+
+    // Combina dados locais e remotos
+    const allNotifications = [...remoteNotifications, ...localNotifications];
+
+    // Renderiza notificações
+    badge.textContent = allNotifications.length;
+    allNotifications.forEach(notification => {
+      const item = `
+        <div class="list-group-item">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <span class="status-dot bg-${notification.color || 'blue'} d-block"></span>
+            </div>
+            <div class="col text-truncate">
+              <a href="${notification.link}" class="text-body d-block">${notification.title}</a>
+              <div class="text-secondary">${notification.description}</div>
+            </div>
+            <div class="col-auto">
+              <a href="${notification.link}" class="list-group-item-actions" target="_blank">
+                <svg class="icon text-muted icon-2" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                  <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+      notificationsList.innerHTML += item;
+    });
+  });
+</script>
