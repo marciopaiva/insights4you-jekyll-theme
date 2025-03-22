@@ -10,6 +10,7 @@ jobs:
   build:
     name: Build Gem
     runs-on: ubuntu-latest
+    permissions: write-all 
 
     steps:
       - uses: actions/checkout@v4
@@ -19,6 +20,7 @@ jobs:
         with:
           ruby-version: 3.1.4
 
+      # Nova etapa: Gera notifications.yml com últimos commits
       - name: Generate Notifications Data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,22 +30,26 @@ jobs:
                "https://api.github.com/repos/marciopaiva/insights4you-jekyll-theme/commits?per_page=5" > commits.json
 
           # Converte JSON para YAML
-          echo "_data/notifications.yml" >> .gitignore # Ignora o arquivo local
           jq -r '.[] | {
             title: .commit.message,
             description: "\(.commit.author.name) · \(.commit.author.date | sub("[.]000Z$"; "Z") | fromdateiso8601 | strftime("%b %-d, %Y")),
             link: .html_url,
             color: "blue"
           }' commits.json | yq -P > _data/notifications.yml
- 
+
+      # Configura Git para usar o token
       - name: Commit and Push Notifications
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Configura o usuário
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+
+          # Adiciona o token ao remote URL
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/marciopaiva/insights4you-jekyll-theme.git
+
+          # Commit e push
           git add _data/notifications.yml
           git commit -m "Auto-update notifications.yml with latest commits" || echo "No changes to commit"
-          git push
-
-      - name: Build the Gem
-        run: |
-          gem build *.gemspec
+          git push origin main
