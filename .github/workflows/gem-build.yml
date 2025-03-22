@@ -10,7 +10,7 @@ jobs:
   build:
     name: Build Gem
     runs-on: ubuntu-latest
-    permissions: write-all # Permite push
+    permissions: write-all
 
     steps:
       - uses: actions/checkout@v4
@@ -20,11 +20,12 @@ jobs:
         with:
           ruby-version: 3.1.4
 
-      # Instala dependências
+      # Instala jq e yq
       - name: Install Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq yq
+          sudo apt-get install -y jq
+          pip install yq
 
       # Gera notifications.yml
       - name: Generate Notifications Data
@@ -34,13 +35,15 @@ jobs:
           curl -s -H "Authorization: token $GITHUB_TOKEN" \
                "https://api.github.com/repos/marciopaiva/insights4you-jekyll-theme/commits?per_page=5" > commits.json
 
-          # Processa JSON para YAML (ajuste a sintaxe do jq)
           jq -r '.[] | {
             title: .commit.message,
-            description: "\(.commit.author.name) · \(.commit.author.date | sub("\\.000Z$"; "Z") | fromdateiso8601 | strftime("%b %-d, %Y")),
+            description: "\(.commit.author.name) · \(.commit.author.date | sub("\\.000Z$"; "Z") | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%b %e, %Y")),
             link: .html_url,
             color: "blue"
-          }' commits.json | yq -P > _data/notifications.yml
+          }' commits.json > temp.json
+
+          yq eval '.' temp.json > _data/notifications.yml
+          rm temp.json
 
       # Commit automático
       - name: Commit and Push Notifications
