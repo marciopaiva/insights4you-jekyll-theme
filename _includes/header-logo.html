@@ -128,11 +128,7 @@
     const notificationsList = document.getElementById('notifications-list');
     const badge = document.getElementById('notification-badge');
 
-    // Ensure the elements exist before proceeding
-    if (!notificationsList || !badge) {
-      console.warn('Notification elements not found in the DOM.');
-      return;
-    }
+    if (!notificationsList || !badge) return;
 
     // Dados locais (via Jekyll)
     const localNotifications = {{ site.data.notifications | jsonify }};
@@ -141,16 +137,20 @@
     let remoteNotifications = [];
     try {
       const response = await fetch('https://raw.githubusercontent.com/marciopaiva/insights4you-jekyll-theme/main/_data/notifications.yml');
-      const yamlText = await response.text();
-      remoteNotifications = jsyaml.load(yamlText) || [];
+      if (response.ok) {
+        const yamlText = await response.text();
+        remoteNotifications = jsyaml.load(yamlText) || [];
+      }
     } catch (error) {
-      console.warn('Failed to fetch remote notifications:', error);
+      console.error('Erro ao buscar notificações remotas:', error);
     }
 
-    // Combina dados locais e remotos
-    const allNotifications = [...remoteNotifications, ...localNotifications];
+    // Combina e ordena (remoto + local)
+    const allNotifications = [...remoteNotifications, ...localNotifications]
+      .sort((a, b) => new Date(b.date) - new Date(a.date)) // Ordena por data
+      .slice(0, 5); // Limita a 5 notificações
 
-    // Renderiza notificações
+    // Renderiza
     badge.textContent = allNotifications.length;
     allNotifications.forEach(notification => {
       const item = `
