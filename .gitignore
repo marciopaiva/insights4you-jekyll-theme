@@ -1,13 +1,7 @@
 # Bundler cache
 .bundle
 vendor
-Gemfile
 Gemfile.lock
-
-
-# Test Files
-index.html
-_config.yml
 
 # Jekyll cache
 .jekyll-cache

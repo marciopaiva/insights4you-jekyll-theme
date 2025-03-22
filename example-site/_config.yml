@@ -1,0 +1,18 @@
+# Configuração do Jekyll
+title: "Example Site"
+description: "Using Insights4YOU Theme Remotely"
+baseurl: "" # Mantenha vazio se o site estiver na raiz
+url: "https://marciopaiva.github.io" # URL do GitHub Pages
+remote_theme: marciopaiva/insights4you-jekyll-theme # Seu tema no GitHub
+
+# Plugins necessários
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Variáveis personalizadas
+theme_color: "#1e7eeb"
+secondary_color: "#78c3e0"
+dark_theme_color: "#232323"
+github_repository: marciopaiva/insights4you-jekyll-theme # Repositório do tema
