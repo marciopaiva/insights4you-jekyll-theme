@@ -28,7 +28,23 @@ A sleek and modern Jekyll theme inspired by the [Tabler Admin Dashboard](https:/
 - 🎨 **Modern Design**: Inspired by the Tabler Admin Dashboard for a sleek and professional look.
 - 📊 **Analytics Ready**: Add analytics scripts easily for tracking user interactions.
 
+## Example Site
 
+To see the theme in action, check out the included example site:
+
+```bash
+# Clone the repository
+git clone https://github.com/marciopaiva/insights4you-jekyll-theme.git
+
+# Navigate to example directory
+cd insights4you-jekyll-theme/example-site
+
+# Install dependencies
+bundle install
+
+# Serve the site locally
+bundle exec jekyll serve
+```
 
 [gem]: https://rubygems.org/gems/insights4you-jekyll-theme
 [codacy]: https://app.codacy.com/gh/marciopaiva/insights4you-jekyll-theme/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
