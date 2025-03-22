@@ -1,1 +1,13 @@
+# _data/notifications.yml (local)
+- title: "Local Notification"
+  description: "This is a local update"
+  link: "/local-changelog/"
+  color: "green"
+  date: "2023-10-05" # Adicione datas para ordenação
 
+# notifications.yml (remoto)
+- title: "GitHub Commit"
+  description: "Fixed mobile menu"
+  link: "https://github.com/marciopaiva/insights4you-jekyll-theme/commit/abc123"
+  color: "blue"
+  date: "2023-10-04"
