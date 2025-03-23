@@ -1,0 +1,20 @@
+{% assign image = include.image | replace: '.svg', '' %}
+{% assign height = include.height | default: 128 %}
+{% assign width = include.width | default: 128 %}
+
+{% assign illustration = site.data.i4y-illustrations.autodark[image] %}
+
+{% unless illustration %}
+    {% assign error_message = "Error: Illustration '" | append: image | append: "' not found in '_data/i4y-illustrations.json'." %}
+    <div class="error">{{ error_message }}</div>
+{% else %}
+    {% assign replace-to = '<svg class="img' %}
+    {% if include.class %}{% assign replace-to = replace-to | append: ' ' | append: include.class %}{% endif %}
+    {% assign replace-to = replace-to | append: '" ' %}
+    {% assign illustration = illustration | replace: '<svg ', replace-to %}
+
+    {% assign replace-to-dimensions = 'width="' | append: width | append: '" height="' | append: height | append: '"' %}
+    {% assign illustration = illustration | replace: 'width="800" height="600"', replace-to-dimensions %}
+
+    {{ illustration }}
+{% endunless %}
