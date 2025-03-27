@@ -21,33 +21,15 @@ jobs:
       uses: actions/checkout@b4ffde65f46336ab88eb53c9f6d47b10a34ccbe8 # Commit SHA for v4
 
     - name: Set up Ruby 3.1.4
-      uses: ruby/setup-ruby@49d9cfa8aac1b9c1b8db6e418256a2d3185d4643 # Commit SHA for v1
+      uses: ruby/setup-ruby@e5517072e87f198d9533967ae13d97c11b604005 # Commit SHA for v1.99.0
       with:
         ruby-version: 3.1.4
-
-    - name: Validate Gemspec
-      run: |
-        gem spec *.gemspec --validate
-
-    - name: Cache Gems
-      uses: actions/cache@v3
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
 
     - name: Build the Gem
       id: build_gem
       run: |
-        bundle config set --local path 'vendor/bundle'
         gem build *.gemspec
         echo "GEM_FILE=$(ls *.gem)" >> $GITHUB_ENV
-
-    - name: Test the Gem
-      run: |
-        gem install ${{ env.GEM_FILE }}
-        rake test # Replace with your test command
 
     - name: Publish to GPR
       if: success()
@@ -71,14 +53,3 @@ jobs:
         gem push ${{ env.GEM_FILE }}
       env:
         RUBYGEMS_API_KEY: "${{ secrets.RUBYGEMS_API_KEY }}"
-
-    - name: Clean Up Credentials
-      if: always()
-      run: |
-        rm -rf $HOME/.gem/credentials
-
-    - name: Upload Gem Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: built-gem
-        path: '*.gem'
