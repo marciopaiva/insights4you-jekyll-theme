@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "A sleek and modern Jekyll theme inspired by the Tabler Admin Dashboard."
   spec.description   = <<~DESC
-    A sleek and modern Jekyll theme inspired by the [Tabler Admin Dashboard](https://github.com/tabler). 
+    A sleek and modern Jekyll theme inspired by the Tabler Admin Dashboard. 
     This theme offers a clean, professional, and responsive interface, making it ideal for developers, 
     content creators, and businesses. Whether you're building documentation sites, admin panels, or 
     project showcases, this theme provides a minimal-effort solution with customizable layouts and 
