@@ -15,10 +15,10 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # Updated commit SHA for v4
 
-    - name: Set up Ruby 3.1.4
+    - name: Set up Ruby 3.1.1
       uses: ruby/setup-ruby@e5517072e87f198d9533967ae13d97c11b604005 # Commit SHA for v1.99.0
       with:
-        ruby-version: 3.1.4
+        ruby-version: 3.1.1
 
     - name: Build the Gem
       run: |

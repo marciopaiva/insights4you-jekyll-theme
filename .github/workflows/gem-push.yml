@@ -18,12 +18,12 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@b4ffde65f46336ab88eb53c9f6d47b10a34ccbe8 # Commit SHA for v4
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # Updated commit SHA for v4
 
-    - name: Set up Ruby 3.1.4
+    - name: Set up Ruby 3.1.1
       uses: ruby/setup-ruby@e5517072e87f198d9533967ae13d97c11b604005 # Commit SHA for v1.99.0
       with:
-        ruby-version: 3.1.4
+        ruby-version: 3.1.1
 
     - name: Build the Gem
       id: build_gem
