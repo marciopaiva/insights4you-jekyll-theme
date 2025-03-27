@@ -25,11 +25,29 @@ jobs:
       with:
         ruby-version: 3.1.4
 
+    - name: Validate Gemspec
+      run: |
+        gem spec *.gemspec --validate
+
+    - name: Cache Gems
+      uses: actions/cache@v3
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Build the Gem
       id: build_gem
       run: |
+        bundle config set --local path 'vendor/bundle'
         gem build *.gemspec
         echo "GEM_FILE=$(ls *.gem)" >> $GITHUB_ENV
+
+    - name: Test the Gem
+      run: |
+        gem install ${{ env.GEM_FILE }}
+        rake test # Replace with your test command
 
     - name: Publish to GPR
       if: success()
@@ -53,3 +71,14 @@ jobs:
         gem push ${{ env.GEM_FILE }}
       env:
         RUBYGEMS_API_KEY: "${{ secrets.RUBYGEMS_API_KEY }}"
+
+    - name: Clean Up Credentials
+      if: always()
+      run: |
+        rm -rf $HOME/.gem/credentials
+
+    - name: Upload Gem Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: built-gem
+        path: '*.gem'
