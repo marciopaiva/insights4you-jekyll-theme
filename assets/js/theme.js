@@ -1,7 +1,9 @@
 // Ensure jsyaml is available
+/* eslint-disable no-undef */ // Disable undefined variable check for 'jsyaml'
 if (typeof jsyaml === "undefined") {
   throw new Error("js-yaml library is not loaded. Please include it in your project.");
 }
+/* eslint-enable no-undef */
 
 const THEME_STORAGE_KEY = "tablerTheme";
 const DEFAULT_THEME = "light";
@@ -55,10 +57,12 @@ function loadTheme() {
 }
 
 // Toggle between light and dark themes
+/* eslint-disable no-unused-vars */ // Disable unused function check for 'toggleTheme'
 function toggleTheme(theme) {
   saveTheme(theme);
   applyTheme(theme);
 }
+/* eslint-enable no-unused-vars */
 
 // Load dynamic notifications
 async function loadNotifications() {
@@ -100,7 +104,9 @@ async function fetchRemoteNotifications() {
     );
     if (!response.ok) throw new Error("Failed to fetch remote notifications");
     const yamlText = await response.text();
+    /* eslint-disable no-undef */ // Disable undefined variable check for 'jsyaml'
     const parsedData = jsyaml.load(yamlText); // Parse YAML data
+    /* eslint-enable no-undef */
     return Array.isArray(parsedData) ? parsedData : [];
   } catch (error) {
     console.error("Error fetching remote notifications:", error);
