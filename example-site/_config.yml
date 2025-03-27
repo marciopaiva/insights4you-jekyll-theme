@@ -28,10 +28,23 @@ baseurl             : ""                                                  # Chan
 url                 : ""                                                  # the base hostname & protocol for your site, e.g. http://example.com
 remote_theme        : insights4you-jekyll-theme                           # Change to your theme repository if you are using a fork
 theme               : insights4you-jekyll-theme 
-open_new_tab        : false                                               # Opens external URLs in new tab (works for posts, projects and navbar only)
+useIconfont         : false
 
-
+### Author Info ###
+author:
+  name              : Marcio Paiva Barbosa
+  bio               : Solution Architect
+  image             : https://avatars.githubusercontent.com/u/1004306?v=4 # or use your avatar eg. assets/image/
+  email             : mpaivabarbosa@gmail.com
+  linkedin          : marcio-paiva-barbosa
+  github            : marciopaiva
+  github-sponsor    : marciopaiva
 
 ### Site Plugins ###
 plugins:
   - jekyll-feed
+
+### Navbar Settings ###
+nav_exclude:               # The following paths are excluded from navbar
+  - pages/tags.html
+  - pages/404.html

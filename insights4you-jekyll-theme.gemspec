@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "insights4you-jekyll-theme"
-  spec.version       = "0.2.0"
+  spec.version       = "0.2.2"
   spec.authors       = ["Marcio Paiva Barbosa"]
   spec.email         = ["mpaivabarbosa@gmail.com"]
 
@@ -15,8 +15,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/marciopaiva/insights4you-jekyll-theme"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0").select { |f|
-    f.match(%r!^((_(includes|layouts|sass|(data\/(locales|origin)))|assets|_posts)\/|README|LICENSE)!i)
+  spec.files = `git ls-files -z`.split("\x0").select { |f|
+    f.match(%r!^(assets/|_(includes|layouts|sass|data|posts)/|README|LICENSE)!i)
   }
 
   spec.metadata = {

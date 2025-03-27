@@ -1,0 +1,42 @@
+
+<div class="card h-100">
+	<div class="card-stamp">
+		<div class="card-stamp-icon bg-primary">
+			{% include ui/icon.html icon="user-circle" %} 
+		</div>
+	</div>
+	<div class="card-body p-3 text-center">
+		<div class="rounded-circle shadow-inset p-1">
+			<img
+				alt="Profile Picture"
+				loading="lazy"
+				width="150"
+				height="150"
+				decoding="async"
+				data-nimg="1"
+				class="rounded-circle shadow-inset"
+				style="color: transparent"
+				src="{{ site.author.image }}"
+				onerror="this.src='/assets/images/i4y-logo.jpg';"
+			/>
+		</div>
+		<h3 class="m-2 text-primary">{{ site.author.name }}</h3>
+		<div class="m-2 text-secondary">{{ site.author.bio }}</div>
+	</div>
+	<div class="card-footer text-center">
+		{% for configs in site.author %}
+
+			{%- assign service_name = configs[0] -%}
+			{%- assign service_data = site.data.i4y-social-media[service_name] -%}
+			{%- if service_data -%}
+			
+			<div class="avatar avatar-lg bg-primary-lt m-1" aria-hidden="false">
+				<a href="{{ service_data.url }}{{ configs[1] }}" target="_blank" class="link-primary" rel="noopener noreferrer" >
+					{% include ui/icon.html icon=service_data.icon %}
+				</a>
+			</div>
+
+			{%- endif -%}
+		{% endfor %}
+	</div>
+</div>

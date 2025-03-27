@@ -1,3 +1,5 @@
+
+
 <!-- BEGIN NAVBAR -->
 <header class="navbar navbar-expand-md d-print-none">
   <div class="container-xl">
@@ -16,97 +18,59 @@
     </button>
     <!-- END NAVBAR TOGGLER -->
 
-    <!-- BEGIN NAVBAR LOGO (SVG com fallback) -->
-    <div class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-      <a href="{{ '/' | relative_url }}">
-        {% include header-svg.html %}
-      </a>
+    <!-- BEGIN NAVBAR LOGO (SVG fallback) -->
+    <div class="navbar-nav flex-row{% if include.class %} {{ include.class }}{% endif %}">
+
+        <a href="{{ '/' | relative_url }}">
+          {% include header-svg.html %}
+        </a>
+        <div class="card-header">
+          <div class="font-weight-medium">{{ site.title }}</div>
+        </div>   
+
     </div>
+
     <!-- END NAVBAR LOGO -->
 
     <!-- BEGIN NAVBAR ICONS -->
-    <div class="navbar-nav flex-row order-md-last">
-      <!-- Botão do GitHub -->
+    <div class="navbar-nav flex-row{% if include.class %} {{ include.class }}{% endif %}">
       <div class="nav-item d-none d-md-flex me-3">
-        <a
-          href="https://github.com/marciopaiva/insights4you-jekyll-theme"
-          class="btn btn-5"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="View Source Code on GitHub"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            fill="none"
-            class="icon icon-tabler icon-tabler-brand-github"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" />
-            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-          </svg>
-          Source code
-        </a>
+        <div class="btn-list">
+          {% include ui/button.html icon="brand-github" outline=true text="Source code" href="https://github.com/marciopaiva/insights4you-jekyll-theme" external=true %}
+          {% include ui/button.html icon="heart" icon-color="pink" outline=true text="Sponsor" href="https://github.com/sponsors/marciopaiva" external=true %}
+        </div>
       </div>
 
-      <!-- Botões de Tema -->
+      <!-- Toggle Theme -->
       <div class="nav-item d-none d-md-flex">
-        <a
-          href="?theme=dark"
+        <button
           class="nav-link px-0 hide-theme-dark"
           title="Dark Mode"
           onclick="toggleTheme('dark')"
           aria-label="Dark Mode"
+          aria-pressed="false"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            fill="none"
-            class="icon icon-1"
-          >
-            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-          </svg>
-        </a>
-        <a
-          href="?theme=light"
+        {% include ui/icon.html icon="moon" %}
+        </button>
+        <button
           class="nav-link px-0 hide-theme-light"
           title="Light Mode"
           onclick="toggleTheme('light')"
           aria-label="Light Mode"
+          aria-pressed="false"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            fill="none"
-            class="icon icon-1"
-          >
-            <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-            <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
-          </svg>
-        </a>
+        {% include ui/icon.html icon="sun" %}
+      </button>
       </div>
 
-      <!-- Notificações Estáticas -->
+      <!-- Show Notifications -->
       <div class="nav-item dropdown d-none d-md-flex me-3">
-        <a
-          href="#"
-          class="nav-link px-0"
-          data-bs-toggle="dropdown"
-          aria-label="Show Notifications"
-        >
-          <svg class="icon icon-1" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+        <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" aria-label="Show Notifications" >
+          <svg class="icon icon-1 icon-tada" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none">
             <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
             <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
           </svg>
-          <span id="notification-badge" class="badge bg-red"></span>
+          <span id="notification-badge" class="badge bg-red-lt"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
           <div class="card">
@@ -120,60 +84,8 @@
     </div>
   </div>
 </header>
-
-<!-- Script para Carregar Notificações -->
-
-<script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    const notificationsList = document.getElementById('notifications-list');
-    const badge = document.getElementById('notification-badge');
-
-    if (!notificationsList || !badge) return;
-
-    // Dados locais (via Jekyll)
-    const localNotifications = {{ site.data.notifications | jsonify }};
-
-    // Busca notificações remotas (YAML do GitHub)
-    let remoteNotifications = [];
-    try {
-      const response = await fetch('https://raw.githubusercontent.com/marciopaiva/insights4you-jekyll-theme/main/_data/notifications.yml');
-      if (response.ok) {
-        const yamlText = await response.text();
-        remoteNotifications = jsyaml.load(yamlText) || [];
-      }
-    } catch (error) {
-      console.error('Erro ao buscar notificações remotas:', error);
-    }
-
-    // Combina e ordena (remoto + local)
-    const allNotifications = [...remoteNotifications, ...localNotifications]
-      .sort((a, b) => new Date(b.date) - new Date(a.date)) // Ordena por data
-      .slice(0, 5); // Limita a 5 notificações
-
-    // Renderiza
-    badge.textContent = allNotifications.length;
-    allNotifications.forEach(notification => {
-      const item = `
-        <div class="list-group-item">
-          <div class="row align-items-center">
-            <div class="col-auto">
-              <span class="status-dot bg-${notification.color || 'blue'} d-block"></span>
-            </div>
-            <div class="col text-truncate">
-              <a href="${notification.link}" class="text-body d-block">${notification.title}</a>
-              <div class="text-secondary">${notification.description}</div>
-            </div>
-            <div class="col-auto">
-              <a href="${notification.link}" class="list-group-item-actions" target="_blank">
-                <svg class="icon text-muted icon-2" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-                  <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-      notificationsList.innerHTML += item;
-    });
-  });
+<script type="text/javascript">
+  window.siteData = {
+    notifications: {{ site.data.notifications | jsonify }}
+  };
 </script>

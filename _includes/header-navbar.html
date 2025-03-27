@@ -1,3 +1,5 @@
+
+
 <!-- BEGIN NAVBAR  -->
 <header class="navbar-expand-md">
   <div class="collapse navbar-collapse" id="navbar-menu">
@@ -7,57 +9,45 @@
           <div class="col">
             <!-- BEGIN NAVBAR MENU -->
             <ul class="navbar-nav page-center">
-              <li class="nav-item active">
-                <a class="nav-link" href="./">
-                  <span class="nav-link-icon d-md-none d-lg-inline-block">
-                    <!-- Download SVG icon from http://tabler.io/icons/icon/home -->
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-1"
-                    >
-                      <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                      <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-                    </svg>
-                  </span>
-                  <span class="nav-link-title"> Home </span>
+            {%- assign html_pages = site.html_pages | sort: 'weight' -%}
+            {%- assign filtered_pages = "" | split: "" -%}
+            {%- for html_page in html_pages -%} 
+              {%- assign exclude = false -%}
+              {%- for exclude_path in site.nav_exclude -%}
+                {%- if exclude_path == html_page.path -%}
+                  {%- assign exclude = true -%}
+                  {%- break -%}
+                {%- elsif exclude_path contains '**' -%}
+                  {%- assign match = exclude_path | remove: '**' -%}
+                  {%- if html_page.path contains match -%}
+                    {%- assign exclude = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- unless exclude -%}
+                {%- assign filtered_pages = filtered_pages | push: html_page -%}
+              {%- endunless -%}
+            {%- endfor -%}        
+
+            {% for html_page in filtered_pages %}
+              {%- if page.url == html_page.url -%}
+                {%- assign active_status = "active" -%}
+              {%- else -%}
+                {%- assign active_status = "" -%}
+              {%- endif -%}
+              {%- if html_page.external_url -%}
+                {%- assign url = html_page.external_url -%}
+              {%- else -%}
+                {%- assign url = html_page.url | relative_url -%}
+              {%- endif -%}              
+              <li class="nav-item d-none-navbar-vertical {{ active_status }}">
+                <a href="{{ url }}" class="nav-link" {%- if html_page.external_url and site.open_new_tab -%} target="_blank" {%- endif -%}>
+                  <span class="nav-link-icon">{% include ui/icon.html icon=html_page.icon %}</span>
+                  <span class="nav-link-title"> {{ html_page.title }} </span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./">
-                  <span class="nav-link-icon d-md-none d-lg-inline-block">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="icon icon-tabler icons-tabler-outline icon-tabler-shield-heart"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path
-                        d="M12 21a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12.01 12.01 0 0 1 .378 5"
-                      />
-                      <path
-                        d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"
-                      />
-                    </svg>
-                  </span>
-                  <span class="nav-link-title"> Projetos </span>
-                </a>
-              </li>
+            {% endfor %}
             </ul>
             <!-- END NAVBAR MENU -->
           </div>

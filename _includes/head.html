@@ -1,9 +1,8 @@
-<!-- head.html -->
 <head>
   <!-- Dynamic Variables -->
   {% assign title = page.title | default: site.title | escape %}
   {% assign description = page.description | default: site.description | strip_html | strip_newlines | truncate: 160 %}
-  {% assign image = page.image | default: site.author.image %}
+  {% assign image = page.image | default: site.author.image | default: "/assets/images/default-image.jpg" %}
 
   {% if page.name and page.collection == 'projects' %}
     {% assign title = page.name | escape %}
@@ -15,6 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <meta name="robots" content="index, follow">
+  <meta name="color-scheme" content="light dark">
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
@@ -43,21 +43,17 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-flags.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-payments.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-social.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-vendors.min.css" />
   {% if site.useIconfont %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
   {% endif %}
   
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Akronim&family=DynaPuff:wght@400..700&family=Nova+Square&family=Syne+Mono&display=swap" rel="stylesheet">
-
   <!-- Stylesheets -->
   <link rel="stylesheet" href="{{ '/assets/css/theme.min.css' | relative_url }}">
 
   <!-- Title and Description -->
-  <title>{{ page.title }} | {{ site.title }}</title>
+  <title>{{ title }} | {{ site.title }}</title>
   <meta name="description" content="{{ description }}">
+  
+  {% seo %}
 </head>

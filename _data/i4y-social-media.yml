@@ -1,0 +1,26 @@
+# Get Icons  from : https://tabler.io/icons
+# Get Colors from : https://brandcolors.net/
+
+behance:
+  url         : https://www.behance.net/
+  icon        : brand-behance
+
+dribbble:
+  url         : https://dribbble.com/
+  icon        : brand-dribbble
+
+email:
+  url         : "mailto:"
+  icon        : mail
+
+github:
+  url         : https://www.github.com/
+  icon        : brand-github
+
+github-sponsor:
+  url         : https://github.com/sponsors/
+  icon        : receipt-dollar
+
+linkedin:
+  url         : https://www.linkedin.com/in/
+  icon        : brand-linkedin

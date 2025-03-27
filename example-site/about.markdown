@@ -1,6 +1,8 @@
 ---
-layout: page
+layout: home
 title: About
+icon: lock
+weight: 3
 permalink: /about/
 ---
 
