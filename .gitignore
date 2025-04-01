@@ -1,28 +1,59 @@
-# Bundler cache
-.bundle
-vendor
+# Jekyll specific
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+.bundle/
+vendor/
+
+# Ruby Gem
+*.gem
 Gemfile.lock
 
-# Jekyll cache
-.jekyll-cache
-.jekyll-metadata
-_site
+# IDE specific
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+*.swp
+*.swo
 
-# RubyGems
-*.gem
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# NPM dependencies
-node_modules
-package-lock.json
+# Logs and databases
+*.log
+*.sql
+*.sqlite
 
-# IDE configurations
-.idea
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-!.vscode/tasks.json
+# Environment
+.env
+.env.local
+.env.*.local
 
-# Misc
-_sass/vendors
-assets/js/dist
-scripts
+# Build and test
+coverage/
+tmp/
+dist/
+build/
+node_modules/
+
+# Documentation
+.yardoc/
+doc/
+.yard-docs/
+
+# Project specific
+example-site/_site/
+example-site/.sass-cache/
+example-site/vendor/
+example-site/.jekyll-cache/
+example-site/.bundle/
+example-site/Gemfile.lock

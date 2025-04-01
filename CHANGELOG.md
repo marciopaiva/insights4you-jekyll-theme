@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),  
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3]
+
+### Added
+- **Ruby Version Requirement**: Set minimum Ruby version to 3.2.2
+- **Security**: Added `rubygems_mfa_required` metadata flag
+- **Documentation**: Enhanced metadata with additional documentation URIs
+
+### Changed
+- **Dependencies**: Updated Jekyll requirement to >= 4.4.1
+- **Gemspec**: Improved file organization and readability
+- **Installation**: Enhanced post-install message with quick start guide
+
+### Security
+- **Authentication**: Enabled mandatory MFA for RubyGems publishing
+
 
 ## [0.2.2]
 
@@ -43,4 +58,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
-[0.2.2]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.0...main
+[0.2.3]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.0...v0.2.2
