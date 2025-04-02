@@ -32,7 +32,6 @@ Gem::Specification.new do |spec|
 # Metadata - Organized for better readability
 spec.metadata = {
   "plugin_type"       => "theme",
-  "allowed_push_host" => "https://rubygems.org",
   "rubygems_mfa_required" => "true",
   
   # Documentation Links
