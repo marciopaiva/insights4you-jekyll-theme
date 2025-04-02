@@ -32,7 +32,6 @@ Gem::Specification.new do |spec|
 # Metadata - Organized for better readability
 spec.metadata = {
   "plugin_type"       => "theme",
-  "rubygems_mfa_required" => "true",
   
   # Documentation Links
   "documentation_uri" => "https://github.com/marciopaiva/insights4you-jekyll-theme/#readme",
