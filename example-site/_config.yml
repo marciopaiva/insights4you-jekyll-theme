@@ -52,3 +52,6 @@ nav_exclude:               # The following paths are excluded from navbar
 exclude:
   - logs
   - logs/build.log
+
+sass:
+  style: compressed

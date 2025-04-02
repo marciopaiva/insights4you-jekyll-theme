@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),  
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0]
+
+### Added
+- **Theme System**: Implemented dark/light theme switching functionality
+- **Theme Toggle**: Added theme toggle buttons in header navigation
+- **Theme Persistence**: Added localStorage support for saving theme preferences
+- **System Theme**: Added automatic system theme preference detection
+- **Accessibility**: Added ARIA attributes and screen reader announcements for theme changes
+- **Sass Architecture**: Added new _sass directory for better style organization
+
+### Changed
+- **Asset Structure**: Reorganized CSS into Sass-based architecture
+- **Resource Loading**: Updated stylesheet and script loading in head.html
+- **Dependencies**: Updated Tabler Core CSS implementation
+- **Example Site**: Updated example pages with new theme support
+- **Documentation**: Enhanced configuration documentation
+- **Build Process**: Improved asset compilation and organization
+
+### Removed
+- **Legacy CSS**: Removed deprecated theme.min.css in favor of Sass structure
+
+### Fixed
+- **Resource Loading**: Fixed stylesheet loading order and dependencies
+- **Theme Toggle**: Improved theme switching reliability
+- **UI Components**: Enhanced component styling for both light and dark themes
+
+
 ## [0.2.3]
 
 ### Added
@@ -58,5 +85,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
+[0.3.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.0...v0.2.2

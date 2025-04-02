@@ -20,18 +20,42 @@ function isValidTheme(theme) {
 
 // Apply the selected theme to the document
 function applyTheme(theme) {
+  if (!isValidTheme(theme)) return;
+
+  // Set theme attributes
+  document.documentElement.setAttribute("data-bs-theme", theme);
   document.body.setAttribute("data-bs-theme", theme);
+  
+  // Update body classes
+  document.body.classList.remove("theme-dark", "theme-light");
+  document.body.classList.add(`theme-${theme}`);
+
+  // Handle button visibility using hide-theme classes
+  const darkButtons = document.querySelectorAll('.hide-theme-dark');
+  const lightButtons = document.querySelectorAll('.hide-theme-light');
+
+  darkButtons.forEach(button => {
+    button.style.display = theme === 'light' ? 'block' : 'none';
+    button.setAttribute('aria-pressed', theme === 'dark');
+  });
+
+  lightButtons.forEach(button => {
+    button.style.display = theme === 'dark' ? 'block' : 'none';
+    button.setAttribute('aria-pressed', theme === 'light');
+  });
 
   // Accessibility: Notify screen readers of theme change
   const themeAnnouncement = document.getElementById("theme-announcement");
   if (themeAnnouncement) {
-    themeAnnouncement.textContent = `Theme changed to ${theme}`;
+    themeAnnouncement.textContent = `Theme changed to ${theme} mode`;
   }
 }
 
 // Save the selected theme to localStorage
 function saveTheme(theme) {
-  localStorage.setItem(THEME_STORAGE_KEY, theme);
+  if (isValidTheme(theme)) {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }
 }
 
 // Load the current theme based on priority: URL > localStorage > system preference > default
@@ -57,12 +81,25 @@ function loadTheme() {
 }
 
 // Toggle between light and dark themes
-/* eslint-disable no-unused-vars */ // Disable unused function check for 'toggleTheme'
 function toggleTheme(theme) {
+  if (!isValidTheme(theme)) {
+    console.error('Invalid theme specified');
+    return;
+  }
   saveTheme(theme);
   applyTheme(theme);
 }
-/* eslint-enable no-unused-vars */
+
+// Watch for system theme changes
+function setupThemeListener() {
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addEventListener('change', (e) => {
+    const currentTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (!currentTheme) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+}
 
 // Load dynamic notifications
 async function loadNotifications() {
@@ -104,8 +141,8 @@ async function fetchRemoteNotifications() {
     );
     if (!response.ok) throw new Error("Failed to fetch remote notifications");
     const yamlText = await response.text();
-    /* eslint-disable no-undef */ // Disable undefined variable check for 'jsyaml'
-    const parsedData = jsyaml.load(yamlText); // Parse YAML data
+    /* eslint-disable no-undef */
+    const parsedData = jsyaml.load(yamlText);
     /* eslint-enable no-undef */
     return Array.isArray(parsedData) ? parsedData : [];
   } catch (error) {
@@ -117,19 +154,15 @@ async function fetchRemoteNotifications() {
 // Combine and sort notifications by date
 function combineAndSortNotifications(local, remote) {
   return [...remote, ...local]
-    .filter((notification) => notification.date) // Ensure each notification has a valid date
+    .filter((notification) => notification.date)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5); // Display only the latest 5 notifications
+    .slice(0, 5);
 }
 
 // Render notifications in the DOM securely
 function renderNotifications(notifications, listElement, badgeElement) {
   badgeElement.textContent = notifications.length;
-
-  // Clear existing notifications
   listElement.innerHTML = "";
-
-  // Append notifications using DOM manipulation for security
   notifications.forEach((notification) => {
     const item = createNotificationItem(notification);
     listElement.appendChild(item);
@@ -190,5 +223,6 @@ function createNotificationItem(notification) {
 // Initialize theme and notifications when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadTheme();
+  setupThemeListener();
   loadNotifications();
 });
