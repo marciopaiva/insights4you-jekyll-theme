@@ -47,7 +47,7 @@ define HEADER
 endef
 export HEADER
 
-.PHONY: help setup build install serve clean kill-services remove-old-gems dev check-deps
+.PHONY: help setup build install prod clean kill-services remove-old-gems dev check-deps
 
 help:  ## Display this help message
 	@clear
@@ -102,7 +102,7 @@ clean: ## Clean Jekyll site
 	@rm -f $(LOG_FILE)
 	@echo "✅ Clean completed."
 
-serve: build remove-old-gems kill-services install  ## Build and serve the site
+prod: build remove-old-gems kill-services install  ## Build and serve the site
 	@printf "$(YELLOW)-----------------------------------------------------------------------------------$(NC)\n"
 	@printf "🚀 Starting Jekyll server on port $(JEKYLL_PORT)...\n" | tee -a $(LOG_FILE)
 	@printf "$(YELLOW)-----------------------------------------------------------------------------------$(NC)\n"
@@ -112,7 +112,7 @@ serve: build remove-old-gems kill-services install  ## Build and serve the site
 	@printf "$(BLUE)Example Site: $(EXAMPLE_DIR)$(NC)\n"
 	@printf "$(BLUE)Server URL: http://localhost:$(JEKYLL_PORT)$(NC)\n"
 	@printf "$(YELLOW)-----------------------------------------------------------------------------------$(NC)\n"	
-	@cd "$(EXAMPLE_DIR)" && JEKYLL_ENV=$(JEKYLL_ENV) bundle exec jekyll serve \
+	@cd "$(EXAMPLE_DIR)" && JEKYLL_ENV=production bundle exec jekyll serve \
 		--port $(JEKYLL_PORT) $(JEKYLL_OPTS) \
 		--config _config.yml --quiet 2>&1 | tee -a $(LOG_FILE)
 

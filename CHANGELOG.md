@@ -2,8 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),  
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.4.0]
+
+### Added
+- **New UI Components**: Introduced additional UI components in the `_includes/ui` directory.
+- **Custom JavaScript**: Added `assets/js/custom.js` for custom JavaScript functionalities.
+- **Enhanced Documentation**: Updated `README.md` with detailed instructions and feature descriptions.
+- **Gem Metadata**: Enhanced gemspec metadata with additional documentation and support links.
+
+### Changed
+- **Theme Configuration**: Updated `_config.yml` in the example site for better theme configuration.
+- **Dependencies**: Updated runtime and development dependencies in `insights4you-jekyll-theme.gemspec`.
+- **Build Process**: Improved the Makefile for better build and test processes.
+
+### Fixed
+- **Bug Fixes**: Resolved minor bugs and improved overall stability.
+
+### Removed
+- **Deprecated Files**: Removed any deprecated or unused files to clean up the project structure.
 
 ## [0.3.0]
 
@@ -85,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
+[0.4.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.0...v0.2.2

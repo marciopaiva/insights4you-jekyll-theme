@@ -1,19 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: base
+body-class: border-top-wide border-primary
+---
 
-{% include head.html %}
+{% assign no-container = page.no-container | default: layout.no-container %}
+{% assign layout-wrapper-full = page.layout-wrapper-full | default: layout.layout-wrapper-full %}
 
-<body
-  data-bs-theme="{{ site.defaultTheme | default: 'dark' }}"
-  {% if layout.body-class or body-class %}class="{% if layout.body-class %}{{ layout.body-class }}{% endif %}{% if body-class %} {{ body-class }}{% endif %}"{% endif %}
->
-  {{ content }}
- 
-  <!-- Tabler JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/js/tabler.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1/dist/js-yaml.min.js"></script>
-  
-  <!-- Custom Theme JS -->
-  <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
-</body>
-</html>
+<div class="page">
+
+	<div class="page-wrapper{% if layout-wrapper-full %} page-wrapper-full{% endif %}">
+
+		{% include layout/navbar.html %}
+
+		<!-- BEGIN PAGE BODY -->
+		<div class="page-body">
+			{% if layout-wrapper-full %}
+			<div class="row justify-content-center">
+				<div class="col-lg-11 col-xl-10">
+					<div class="card card-lg">
+						<div class="card-body markdown">
+							{{ content }}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% else %}
+			{% unless no-container %}
+			<div class="container-xl{% if page-container-centered %} my-auto{% endif %}{% if page-container-class %} {{ page-container-class }}{% endif %}">
+			{% endunless %}
+				{{ content }}
+			{% unless no-container %}
+			</div>
+			{% endunless %}
+
+			{% endif %}
+		</div>
+		<!-- END PAGE BODY -->
+
+		{% include layout/footer.html %}
+	</div>
+</div>

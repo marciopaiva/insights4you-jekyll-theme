@@ -1,21 +1,23 @@
 <head>
-  <!-- Dynamic Variables -->
-  {% assign title = page.title | default: site.title | escape %}
-  {% assign description = page.description | default: site.description | strip_html | strip_newlines | truncate: 160 %}
-  {% assign image = page.image | default: site.author.image | default: "/assets/images/default-image.jpg" %}
-
-  {% if page.name and page.collection == 'projects' %}
-    {% assign title = page.name | escape %}
-  {% endif %}
-  
   <!-- Basic Meta Tags -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <meta name="robots" content="index, follow">
+  <meta name="description" content="{{ description | default: site.description | escape }}"/>
+  <meta name="author" content="{{ site.author.name }}"/>
+  {% if site.keywords %}<meta name="keywords" content="{{ site.keywords }}"/>{% endif %}
+
+  <!-- Theme Colors and Mobile Settings -->
+  <meta name="theme-color" content="{{ site.themeColor }}"/>
   <meta name="color-scheme" content="light dark">
-  
+  <meta name="msapplication-TileColor" content="{{ site.themeColor }}"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="HandheldFriendly" content="True"/>
+  <meta name="MobileOptimized" content="320"/>
+
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title }}">
@@ -38,23 +40,40 @@
   <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon-32x32.png' | relative_url }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/images/favicon-16x16.png' | relative_url }}">
   <link rel="manifest" href="{{ '/assets/images/site.webmanifest' | relative_url }}">
-  
-  <!-- Preload External Resources 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-flags.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-payments.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler-vendors.min.css" />
-  -->
+    
   {% if site.useIconfont %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
   {% endif %}
+
+  <!-- Preconnect to External Resources -->
+  <link rel="preconnect" href="https://rsms.me">
+  <link rel="dns-prefetch" href="https://rsms.me">
+
+  <!-- Main Stylesheet with cache busting -->
+  {% if env == "production" %}
+      <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ cache_bust }}"
+            {% if site.data.sri.css %}integrity="{{ site.data.sri.css }}"{% endif %} crossorigin="anonymous">
+  {% else %}
+      <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v=dev">
+  {% endif %}
+
+  <!-- Page-specific CSS -->
+  {% if page.custom_css %}
+      {% for css_file in page.custom_css %}
+          <link rel="stylesheet" href="{{ '/assets/css/' | append: css_file | append: '.css' | relative_url }}?v={{ cache_bust }}">
+      {% endfor %}
+  {% endif %}
+
+  <!-- Custom Font -->
+  <style>
+      @import url('https://rsms.me/inter/inter.css');
+  </style>
   
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
   <!-- Title and Description -->
   <title>{{ title }} | {{ site.title }}</title>
   <meta name="description" content="{{ description }}">
   
+  <!-- Jekyll seo tags  -->
   {% seo %}
 </head>

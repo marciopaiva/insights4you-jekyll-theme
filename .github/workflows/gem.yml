@@ -22,14 +22,26 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2.2'  # Updated to match gemspec requirement
+        ruby-version: '3.2.2'
         bundler-cache: true
+
+    # Add initial default value for GEM_FILE
+    - name: Set default GEM_FILE
+      run: echo "GEM_FILE=not-set" >> $GITHUB_ENV
 
     - name: Build Gem
       id: build_gem
       run: |
         gem build *.gemspec
-        echo "GEM_FILE=$(ls *.gem)" >> $GITHUB_ENV
+        GEM_FILE=$(ls *.gem)
+        echo "GEM_FILE=$GEM_FILE" >> $GITHUB_ENV
+        echo "Built gem file: $GEM_FILE"
+
+    # Add verification step
+    - name: Verify Gem File
+      run: |
+        echo "Verifying gem file: ${{ env.GEM_FILE }}"
+        test -f "${{ env.GEM_FILE }}" || exit 1
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
@@ -54,7 +66,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2.2'  # Updated to match gemspec requirement
+        ruby-version: '3.2.2'
         bundler-cache: true
 
     - name: Download Artifact
@@ -62,13 +74,21 @@ jobs:
       with:
         name: gem-package
 
+    # Add verification after download
+    - name: Verify Downloaded Gem
+      run: |
+        GEM_FILE=$(ls *.gem)
+        echo "GEM_FILE=$GEM_FILE" >> $GITHUB_ENV
+        echo "Downloaded gem file: $GEM_FILE"
+        test -f "$GEM_FILE" || exit 1
+
     - name: Publish to GitHub Packages
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials
         chmod 0600 $HOME/.gem/credentials
         printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-        gem push --key github --host https://rubygems.pkg.github.com/${OWNER} *.gem
+        gem push --key github --host https://rubygems.pkg.github.com/${OWNER} ${{ env.GEM_FILE }}
       env:
         GEM_HOST_API_KEY: "Bearer ${{ secrets.GITHUB_TOKEN }}"
         OWNER: ${{ github.repository_owner }}
@@ -79,14 +99,14 @@ jobs:
         touch $HOME/.gem/credentials
         chmod 0600 $HOME/.gem/credentials
         printf -- "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}\n" > $HOME/.gem/credentials
-        gem push *.gem
+        gem push ${{ env.GEM_FILE }}
       env:
         RUBYGEMS_API_KEY: "${{ secrets.RUBYGEMS_API_KEY }}"
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        files: "*.gem"
+        files: "${{ env.GEM_FILE }}"
         generate_release_notes: true
         draft: false
         prerelease: false

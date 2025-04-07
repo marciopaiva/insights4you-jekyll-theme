@@ -5,7 +5,7 @@ require 'date'
 Gem::Specification.new do |spec|
   # Basic Information
   spec.name          = "insights4you-jekyll-theme"
-  spec.version       = "0.3.0"
+  spec.version       = "0.4.0"
   spec.platform      = Gem::Platform::RUBY
   spec.date          = Time.now.strftime('%Y-%m-%d')
   spec.authors       = ["Marcio Paiva Barbosa"]
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.description   = File.read('README.md') rescue spec.summary
   spec.homepage      = "https://github.com/marciopaiva/insights4you-jekyll-theme"
   spec.license       = "MIT"
-  
+
   # Files Management - More efficient file selection
   spec.files = Dir.glob(%w[
     {assets,_includes,_layouts,_sass,_data}/**/*
@@ -32,19 +32,19 @@ Gem::Specification.new do |spec|
 # Metadata - Organized for better readability
 spec.metadata = {
   "plugin_type"       => "theme",
-  
+
   # Documentation Links
   "documentation_uri" => "https://github.com/marciopaiva/insights4you-jekyll-theme/#readme",
   "homepage_uri"      => "https://github.com/marciopaiva/insights4you-jekyll-theme",
   "wiki_uri"          => "https://github.com/marciopaiva/insights4you-jekyll-theme/wiki",
   "usage_uri"         => "https://github.com/marciopaiva/insights4you-jekyll-theme/wiki/Usage",
-  
+
   # Repository Links
   "source_code_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/tree/main",
   "bug_tracker_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/issues",
   "changelog_uri"     => "https://github.com/marciopaiva/insights4you-jekyll-theme/blob/main/CHANGELOG.md",
   "examples_uri"      => "https://github.com/marciopaiva/insights4you-jekyll-theme/tree/main/example-site",
-  
+
   # Support
   "funding_uri"       => "https://github.com/sponsors/marciopaiva"
 }.freeze
@@ -76,18 +76,18 @@ spec.metadata = {
   # Installation Message
   spec.post_install_message = <<~MSG.freeze
     ✨ Thanks for installing insights4you-jekyll-theme! ✨
-    
+
     📚 Quick Start:
     1. Add to _config.yml:
        theme: insights4you-jekyll-theme
     2. Documentation:
        #{spec.metadata['documentation_uri']}
-    
+
     🌟 Support:
     - Star: #{spec.homepage}
     - Issues: #{spec.metadata['bug_tracker_uri']}
     - Sponsor: #{spec.metadata['funding_uri']}
-    
+
     Happy theming! 🎨
   MSG
 end

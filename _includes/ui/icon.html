@@ -1,33 +1,31 @@
-{% assign icon-name = include.icon | default: "question-mark" %}
-{% assign icon-type = include.type | default: "outline" %}
+{%- assign icon-name = include.icon -%}
+{%- assign icon-type = include.type | default: "outline" -%}
 
-{% assign replace-to = "icon" %}
+{%- assign replace-to = "icon" -%}
 
-{% if include.class %}
-    {% assign replace-to = replace-to | append: ' ' | append: include.class %}
-{% endif %}
+{%- if include.class -%}
+{%- assign replace-to = replace-to | append: ' ' | append: include.class -%}
+{%- endif -%}
 
-{% if include.color %}
-    {% assign replace-to = replace-to | append: ' text-' | append: include.color %}
-{% endif %}
+{%- if include.color -%}
+{%- assign replace-to = replace-to | append: ' text-' | append: include.color -%}
+{%- endif %}
 
-{% if include.inline %}
-    {% assign replace-to = replace-to | append: ' icon-inline' %}
-{% endif %}
+{%- if include.inline -%}
+{%- assign replace-to = replace-to | append: ' icon-inline' -%}
+{%- endif -%}
 
-{% if include['size'] %}
-    {% assign replace-to = replace-to | append: ' icon-' | append: include['size'] %}
-{% endif %}
+{%- if include['size'] -%}
+{%- assign replace-to = replace-to | append: ' icon-' | append: include['size'] -%}
+{%- endif -%}
 
-{% assign replace-to = 'class="' | append: replace-to | append: '"' %}
+{%- assign replace-to = 'class="' | append: replace-to | append: '"' -%}
 
-{% if site.useIconfont %}
-    <i class="icon ti ti-{{ icon-name }}{% if include.color %} {{ include.color }}{% endif %}{% if include.class %} {{ include.class }}{% endif %}"></i>
-{% elsif site.data.i4y-icons[icon-name] %}
-    {% assign svg-icon = site.data.i4y-icons[icon-name].svg[icon-type] | default: '' %}
-    {% assign svg-icon = svg-icon | replace: '<path stroke="none" d="M0 0h24v24H0z" fill="none"/>', '' %}
-    {{ svg-icon | replace: 'class="icon"', replace-to }}
-{% else %}
-    {% assign error_message = "Error: Icon '" | append: icon-name | append: "' not found or useIconfont is disabled." %}
-    <div class="error">{{ error_message }}</div>
-{% endif %}
+{%- if site.useIconfont -%}
+	<i class="icon ti ti-{{ icon-name }}{% if include.color %} {{ include.color }}{% endif %}{% if include.class %} {{ include.class }}{% endif %}"></i>
+{%- elsif site.data.i4y-icons[icon-name] -%}
+	<!-- Download SVG icon from http://tabler.io/icons/icon/{{ icon-name }} -->
+	{% assign svg-icon = site.data.i4y-icons[icon-name].svg[icon-type] | default: '' %}
+	{% assign svg-icon = svg-icon | replace: '<path stroke="none" d="M0 0h24v24H0z" fill="none"/>', '' %}
+	{{ svg-icon | replace_regex: 'class=\"[^"]+\"', replace-to }}
+{%- endif -%}
