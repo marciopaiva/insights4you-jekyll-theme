@@ -16,18 +16,23 @@
 {% endif %}
 
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}"
-      {% if layout-rtl %}dir="rtl"{% endif %}
-      {% if layout.html-class or page.html-class %}class="{{ page.html-class | default: layout.html-class }}"{% endif %}>
+<html
+  lang="{{ page.lang | default: site.lang | default: 'en' }}"
+  {% if layout-rtl %}
+  dir="rtl"
+  {% endif %}
+  {% if layout.html-class or page.html-class %}
+  class="{{ page.html-class | default: layout.html-class }}"
+  {% endif %}>
 
-      {% include layout/head.html %}
+  {% include layout/head.html %}
 
-    <body class="{% if layout-dark %}theme-dark{% endif %} 
-                {% if layout.body-class %}{{ layout.body-class }}{% endif %} 
+    <body class="{% if layout-dark %}theme-dark{% endif %}
+                {% if layout.body-class %}{{ layout.body-class }}{% endif %}
                 {% if body-class %}{{ body-class }}{% endif %}">
-    
-        <!-- Main Content -->
-        {{ content }}
+
+    <!-- Main Content -->
+  {{ content }}
 
 
     <!-- Footer -->
@@ -38,26 +43,26 @@
 
     <!-- Theme Script -->
     {% if env == "development" %}
-        <script src="{{ '/assets/js/theme.js' | relative_url }}?v={{ cache_bust }}"></script>
-        <script src="{{ '/assets/js/custom.js' | relative_url }}?v={{ cache_bust }}"></script>
+      <script src="{{ '/assets/js/theme.js' | relative_url }}?v={{ cache_bust }}"></script>
+      <script src="{{ '/assets/js/custom.js' | relative_url }}?v={{ cache_bust }}"></script>
     {% else %}
-        <script src="{{ '/assets/js/theme.min.js' | relative_url }}?v={{ cache_bust }}"></script>
-        <script src="{{ '/assets/js/custom.min.js' | relative_url }}?v={{ cache_bust }}"></script>
-    {% endif %}    
+      <script src="{{ '/assets/js/theme.min.js' | relative_url }}?v={{ cache_bust }}"></script>
+      <script src="{{ '/assets/js/custom.min.js' | relative_url }}?v={{ cache_bust }}"></script>
+    {% endif %}
 
     <!-- Page-specific Scripts -->
     {% if page.custom_js %}
-        {% for js_file in page.custom_js %}
-            <script src="{{ '/assets/js/' | append: js_file | append: '.js' | relative_url }}?v={{ cache_bust }}"></script>
-        {% endfor %}
+      {% for js_file in page.custom_js %}
+        <script src="{{ '/assets/js/' | append: js_file | append: '.js' | relative_url }}?v={{ cache_bust }}"></script>
+      {% endfor %}
     {% endif %}
 
     <!-- Noscript Fallback -->
     <noscript>
-        <div class="alert alert-warning" role="alert">
-            This website works best with JavaScript enabled.
-        </div>
+      <div class="alert alert-warning" role="alert">
+        This website works best with JavaScript enabled.
+      </div>
     </noscript>
 
-</body>
+  </body>
 </html>

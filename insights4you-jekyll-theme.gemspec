@@ -29,49 +29,39 @@ Gem::Specification.new do |spec|
   # Ruby Version Requirement
   spec.required_ruby_version = ">= 3.2.2"
 
-# Metadata - Organized for better readability
-spec.metadata = {
-  "plugin_type"       => "theme",
-
-  # Documentation Links
-  "documentation_uri" => "https://github.com/marciopaiva/insights4you-jekyll-theme/#readme",
-  "homepage_uri"      => "https://github.com/marciopaiva/insights4you-jekyll-theme",
-  "wiki_uri"          => "https://github.com/marciopaiva/insights4you-jekyll-theme/wiki",
-  "usage_uri"         => "https://github.com/marciopaiva/insights4you-jekyll-theme/wiki/Usage",
-
-  # Repository Links
-  "source_code_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/tree/main",
-  "bug_tracker_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/issues",
-  "changelog_uri"     => "https://github.com/marciopaiva/insights4you-jekyll-theme/blob/main/CHANGELOG.md",
-  "examples_uri"      => "https://github.com/marciopaiva/insights4you-jekyll-theme/tree/main/example-site",
-
-  # Support
-  "funding_uri"       => "https://github.com/sponsors/marciopaiva"
-}.freeze
+  # Metadata - Organized for better readability
+  spec.metadata = {
+    "plugin_type"       => "theme",
+    "documentation_uri" => "https://github.com/marciopaiva/insights4you-jekyll-theme/#readme",
+    "homepage_uri"      => "https://github.com/marciopaiva/insights4you-jekyll-theme",
+    "wiki_uri"          => "https://github.com/marciopaiva/insights4you-jekyll-theme/wiki",
+    "usage_uri"         => "https://github.com/marciopaiva/insights4you-jekyll-theme/wiki/Usage",
+    "source_code_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/tree/main",
+    "bug_tracker_uri"   => "https://github.com/marciopaiva/insights4you-jekyll-theme/issues",
+    "changelog_uri"     => "https://github.com/marciopaiva/insights4you-jekyll-theme/blob/main/CHANGELOG.md",
+    "examples_uri"      => "https://github.com/marciopaiva/insights4you-jekyll-theme/tree/main/example-site",
+    "funding_uri"       => "https://github.com/sponsors/marciopaiva"
+  }.freeze
 
   # Dependencies - Grouped by purpose
   # Runtime Dependencies
-  {
-    "jekyll" => [">= 4.4.1", "< 5.0"],
-    "jekyll-feed" => "~> 0.15",
-    "jekyll-seo-tag" => "~> 2.8",
-    "jekyll-sitemap" => "~> 1.4",
-    "jekyll-paginate" => "~> 1.1"
-  }.each do |gem, version|
-    spec.add_runtime_dependency gem, version
-  end
+  spec.add_runtime_dependency "jekyll", ">= 4.4.1", "< 5.0"
+  spec.add_runtime_dependency "jekyll-feed", "~> 0.15"
+  spec.add_runtime_dependency "jekyll-seo-tag", "~> 2.8"
+  spec.add_runtime_dependency "jekyll-sitemap", "~> 1.4"
+  spec.add_runtime_dependency "jekyll-paginate", "~> 1.1"
+  spec.add_runtime_dependency "jekyll-github-metadata", "~> 2.13"
+  spec.add_runtime_dependency "octokit", "~> 4.25.1"
+
+
 
   # Development Dependencies
-  {
-    "bundler" => "~> 2.4",
-    "rake" => "~> 13.0",
-    "rspec" => "~> 3.12",
-    "rubocop" => "~> 1.50",
-    "webrick" => "~> 1.7",
-    "html-proofer" => "~> 5.0"
-  }.each do |gem, version|
-    spec.add_development_dependency gem, version
-  end
+  spec.add_development_dependency "bundler", "~> 2.4"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.12"
+  spec.add_development_dependency "rubocop", "~> 1.50"
+  spec.add_development_dependency "webrick", "~> 1.7"
+  spec.add_development_dependency "html-proofer", "~> 5.0"
 
   # Installation Message
   spec.post_install_message = <<~MSG.freeze

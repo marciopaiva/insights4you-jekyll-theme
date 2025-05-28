@@ -8,35 +8,35 @@ body-class: border-top-wide border-primary
 
 <div class="page">
 
-	<div class="page-wrapper{% if layout-wrapper-full %} page-wrapper-full{% endif %}">
+  <div class="page-wrapper{% if layout-wrapper-full %} page-wrapper-full{% endif %}">
 
-		{% include layout/navbar.html %}
+    {% include layout/navbar.html %}
 
-		<!-- BEGIN PAGE BODY -->
-		<div class="page-body">
-			{% if layout-wrapper-full %}
-			<div class="row justify-content-center">
-				<div class="col-lg-11 col-xl-10">
-					<div class="card card-lg">
-						<div class="card-body markdown">
-							{{ content }}
-						</div>
-					</div>
-				</div>
-			</div>
-			{% else %}
-			{% unless no-container %}
-			<div class="container-xl{% if page-container-centered %} my-auto{% endif %}{% if page-container-class %} {{ page-container-class }}{% endif %}">
-			{% endunless %}
-				{{ content }}
-			{% unless no-container %}
-			</div>
-			{% endunless %}
+    <!-- BEGIN PAGE BODY -->
+    <div class="page-body">
+      {% if layout-wrapper-full %}
+        <div class="row justify-content-center">
+          <div class="col-lg-11 col-xl-10">
+            <div class="card card-lg">
+              <div class="card-body markdown">
+                {{ content }}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        {% unless no-container %}
+          <div class="container-xl{% if page-container-centered %} my-auto{% endif %}{% if page-container-class %} {{ page-container-class }}{% endif %}">
+        {% endunless %}
+        {{ content }}
+        {% unless no-container %}
+          </div>
+        {% endunless %}
 
-			{% endif %}
-		</div>
-		<!-- END PAGE BODY -->
+      {% endif %}
+  </div>
+    <!-- END PAGE BODY -->
 
-		{% include layout/footer.html %}
-	</div>
+    {% include layout/footer.html %}
+  </div>
 </div>

@@ -9,15 +9,19 @@ description         : >-                                                  # this
 baseurl             : ""                                                  # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
 url                 : ""                                                  # the base hostname & protocol for your site, e.g. http://example.com
 remote_theme        : insights4you-jekyll-theme                           # Change to your theme repository if you are using a fork
-theme               : insights4you-jekyll-theme 
+theme               : insights4you-jekyll-theme
 keywords            : "your, keywords"
 lang                : "en"
 
 ### Theme Settings ###
+markdown            : kramdown
 layout-dark         : false
 themeColor          : "#206bc4"
 useIconfont         : false
 
+### GitHub Projects ###
+github:
+  user: marciopaiva
 
 ### Author Info ###
 author:
@@ -32,6 +36,11 @@ author:
 ### Site Plugins ###
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-github-metadata
+
 
 ### Navbar Settings ###
 nav_exclude:               # The following paths are excluded from navbar

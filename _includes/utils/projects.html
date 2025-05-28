@@ -1,0 +1,212 @@
+<header class="hero" role="banner">
+  <div class="container">
+    <h1 class="hero-title">Projects</h1>
+    <p class="hero-description mt-1">
+      Here you'll find a collection of my projects, experiments, and learning.
+    </p>
+  </div>
+</header>
+
+<main class="page-body">
+  <div class="container-xl">
+    {% if site.github.public_repositories %}
+      <!-- Repositories list -->
+      <div class="row row-cards">
+        {% assign filtered_repos = site.github.public_repositories | where_exp: "repo", "repo.stargazers_count > 0" %}
+        {% assign sorted_repos = filtered_repos | sort: "updated_at" | reverse %}
+
+        {% if sorted_repos.size > 0 %}
+          {% for repo in sorted_repos limit: 6 %}
+            <div class="col-md-6 col-lg-6">
+              <article class="card h-100">
+                <!-- Repository Icon -->
+                <div class="card-stamp">
+                  <div class="card-stamp-icon bg-primary">
+                    {% include ui/icon.html icon="brand-github" color="currentColor" size="48" class="img-fluid" loading="lazy" alt="GitHub Repository Icon" %}
+                  </div>
+                </div>
+
+                <!-- Repository Header -->
+                <div class="card-title text-center my-3">
+                  <h2 class="mb-0 text-primary">{{ repo.name | escape }}</h2>
+                  <p class="text-muted mb-0">
+                    <time
+                      class="repo-date"
+                      datetime="{{ repo.created_at }}"
+                      data-date="{{ repo.created_at }}"
+                      data-fallback="{{ repo.created_at | date: '%b %d, %Y' }}">
+                      {{ repo.created_at | date: "%b %d, %Y" }}
+                    </time>
+                    -
+                    <time
+                      class="repo-date"
+                      datetime="{{ repo.updated_at }}"
+                      data-date="{{ repo.updated_at }}"
+                      data-fallback="{{ repo.updated_at | date: '%b %d, %Y' }}">
+                      {{ repo.updated_at | date: "%b %d, %Y" }}
+                    </time>
+                  </p>
+
+                  <!-- Repository Topics -->
+                  <div class="mt-2">
+                    {% assign topic_limit = 5 %}
+                    {% if repo.topics and repo.topics.size > 0 %}
+                      {% for topic in repo.topics limit: topic_limit %}
+                        <span class="badge badge-outline mx-1">{{ topic | escape }}</span>
+                      {% endfor %}
+                      {% if repo.topics.size > topic_limit %}
+                        <span class="badge badge-outline mx-1">+{{ repo.topics.size | minus: topic_limit }}</span>
+                      {% endif %}
+                    {% else %}
+                      <span class="badge badge-outline mx-1">Uncategorized</span>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <!-- Repository Stats -->
+                <div class="row row-cards text-center m-1">
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="align-items-center">
+                          <div class="subheader">Stars</div>
+                          <div class="ms-auto lh-1">
+                            <div class="badge badge-outline my-1">
+                              {{ repo.stargazers_count | default: 0 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="align-items-center">
+                          <div class="subheader">Watchers</div>
+                          <div class="ms-auto lh-1">
+                            <div class="badge badge-outline my-1">
+                              {{ repo.watchers_count | default: 0 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="align-items-center">
+                          <div class="subheader">Forks</div>
+                          <div class="ms-auto lh-1">
+                            <div class="badge badge-outline my-1">
+                              {{ repo.forks_count | default: 0 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="align-items-center">
+                          <div class="subheader">Issues</div>
+                          <div class="ms-auto lh-1">
+                            <div class="badge badge-outline my-1">
+                              {{ repo.open_issues_count | default: 0 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Repository Description -->
+                <div class="card-body h-100">
+                  <div class="card-title text-center my-3">
+                    {% if repo.description %}
+                      {{ repo.description | escape | truncate: 150 }}
+                    {% else %}
+                      <span class="text-muted">No description available</span>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <!-- Repository Link -->
+                <div class="card-footer">
+                  {% include ui/button.html href=repo.html_url external=true block=true color="text-primary" class="bg-primary-lt" icon="eye" icon-only=include.icon-only text="View Repository" aria-label="View Repository on GitHub" %}
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-12">
+            <div class="alert alert-info">
+              <h3>No starred repositories found</h3>
+              <p>Repositories with at least one star will appear here.</p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="alert alert-warning">
+        <h3>Unable to load repositories</h3>
+        <p>There was a problem fetching the repository data. Please try again later.</p>
+      </div>
+    {% endif %}
+
+    <!-- Local Projects -->
+    <div class="row row-cards my-3">
+
+      <div class="col-md-6 col-lg-6">
+        <article class="card h-100">
+          <!-- Repository Icon -->
+          <div class="card-stamp">
+            <div class="card-stamp-icon bg-primary">
+              {% include ui/icon.html icon="brand-github" color="currentColor" size="48" class="img-fluid" loading="lazy" alt="GitHub Repository Icon" %}
+            </div>
+          </div>
+
+        </article>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      const dateElements = document.querySelectorAll('.repo-date');
+      const dateOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+
+      dateElements.forEach(element => {
+        try {
+          const date = new Date(element.dataset.date);
+          if (date instanceof Date && !isNaN(date)) {
+            element.textContent = date.toLocaleDateString(navigator.language, dateOptions);
+          } else {
+            throw new Error('Invalid date');
+          }
+        } catch (dateError) {
+          element.textContent = element.dataset.fallback;
+          console.warn(`Date parsing failed for: ${element.dataset.date}`);
+        }
+      });
+    } catch (e) {
+      console.error('Date formatting failed:', e);
+      // Fallback to pre-rendered dates if JS fails
+    }
+  });
+
+  // Add loading state handling
+  window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
+  });
+</script>

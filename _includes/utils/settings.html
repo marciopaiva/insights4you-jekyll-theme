@@ -1,144 +1,174 @@
 <div class="settings">
-    <!-- Settings Toggle Button -->
-    <a href="#" class="btn btn-floating btn-icon btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings" aria-controls="offcanvasSettings" aria-expanded="false">
-        {% include ui/icon.html icon="brush" %}
-    </a>
+  <!-- Settings Toggle Button -->
+  <a
+    href="#"
+    class="btn btn-floating btn-icon btn-primary"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasSettings"
+    aria-controls="offcanvasSettings"
+    aria-expanded="false">
+    {% include ui/icon.html icon="brush" %}
+  </a>
 
-    <!-- Settings Panel -->
-    <form class="offcanvas offcanvas-start offcanvas-narrow" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettingsLabel">
-        <!-- Header -->
-        <div class="offcanvas-header">
-            <h2 class="offcanvas-title" id="offcanvasSettingsLabel">Theme Builder</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <!-- Settings Panel -->
+  <form
+    class="offcanvas offcanvas-start offcanvas-narrow"
+    tabindex="-1"
+    id="offcanvasSettings"
+    aria-labelledby="offcanvasSettingsLabel">
+    <!-- Header -->
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title" id="offcanvasSettingsLabel">Theme Builder</h2>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"></button>
+    </div>
+
+    <!-- Body -->
+    <div class="offcanvas-body d-flex flex-column">
+      <div>
+        <!-- Color Mode -->
+        <div class="mb-4">
+          <label class="form-label" for="colorMode">Color mode</label>
+          <p class="form-hint" id="colorModeHint">Choose the color mode for your app.</p>
+          {% assign modes = 'light,dark' | split: ',' %}
+          {% for mode in modes %}
+            <label class="form-check">
+              <div class="form-selectgroup-item">
+                <input
+                  type="radio"
+                  name="theme"
+                  value="{{ mode }}"
+                  class="form-check-input"
+                  id="theme-{{ mode }}"
+                  aria-describedby="colorModeHint"
+                  {% if mode == 'light' %}
+                  checked{% endif %}>
+                <div class="form-check-label">{{ mode | capitalize }}</div>
+              </div>
+            </label>
+          {% endfor %}
         </div>
 
-        <!-- Body -->
-        <div class="offcanvas-body d-flex flex-column">
-            <div>
-                <!-- Color Mode -->
-                <div class="mb-4">
-                    <label class="form-label" for="colorMode">Color mode</label>
-                    <p class="form-hint" id="colorModeHint">Choose the color mode for your app.</p>
-                    {% assign modes = 'light,dark' | split: ',' %}
-                    {% for mode in modes %}
-                    <label class="form-check">
-                        <div class="form-selectgroup-item">
-                            <input type="radio" 
-                                   name="theme" 
-                                   value="{{ mode }}" 
-                                   class="form-check-input"
-                                   id="theme-{{ mode }}"
-                                   aria-describedby="colorModeHint"
-                                   {% if mode == 'light' %}checked{% endif %}>
-                            <div class="form-check-label">{{ mode | capitalize }}</div>
-                        </div>
-                    </label>
-                    {% endfor %}
-                </div>
-
-                <!-- Color Scheme -->
-                <div class="mb-4">
-                    <label class="form-label" for="colorScheme">Color scheme</label>
-                    <p class="form-hint" id="colorSchemeHint">The perfect color mode for your app.</p>
-                    <div class="row g-2">
-                        {% for color in site.data.i4y-colors.base %}
-                        <div class="col-auto">
-                            <label class="form-colorinput">
-                                <input name="theme-primary" 
-                                       type="radio" 
-                                       value="{{ color.name }}" 
-                                       class="form-colorinput-input"
-                                       id="theme-primary-{{ color.name }}"
-                                       aria-describedby="colorSchemeHint"
-                                       {% if color.name == 'blue' %}checked{% endif %}>
-                                <span class="form-colorinput-color" style="background-color: {{ color.value }}"></span>
-                            </label>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Font Family -->
-                <div class="mb-4">
-                    <label class="form-label" for="fontFamily">Font family</label>
-                    <p class="form-hint" id="fontFamilyHint">Choose the font family that fits your app.</p>
-                    <div>
-                        {% assign fonts = 'sans-serif,serif,monospace,comic' | split: ',' %}
-                        {% for font in fonts %}
-                        <label class="form-check">
-                            <div class="form-selectgroup-item">
-                                <input type="radio" 
-                                       name="theme-font" 
-                                       value="{{ font }}" 
-                                       class="form-check-input"
-                                       id="theme-font-{{ font }}"
-                                       aria-describedby="fontFamilyHint"
-                                       {% if font == 'sans-serif' %}checked{% endif %}>
-                                <div class="form-check-label">{{ font | capitalize }}</div>
-                            </div>
-                        </label>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Theme Base -->
-                <div class="mb-4">
-                    <label class="form-label" for="themeBase">Theme base</label>
-                    <p class="form-hint" id="themeBaseHint">Choose the gray shade for your app.</p>
-                    <div>
-                        {% assign bases = 'slate,gray,zinc,neutral,stone' | split: ',' %}
-                        {% for base in bases %}
-                        <label class="form-check">
-                            <div class="form-selectgroup-item">
-                                <input type="radio" 
-                                       name="theme-base" 
-                                       value="{{ base }}" 
-                                       class="form-check-input"
-                                       id="theme-base-{{ base }}"
-                                       aria-describedby="themeBaseHint"
-                                       {% if base == 'gray' %}checked{% endif %}>
-                                <div class="form-check-label">{{ base | capitalize }}</div>
-                            </div>
-                        </label>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Corner Radius -->
-                <div class="mb-4">
-                    <label class="form-label" for="cornerRadius">Corner Radius</label>
-                    <p class="form-hint" id="cornerRadiusHint">Choose the border radius factor for your app.</p>
-                    <div>
-                        {% assign radiuses = '0,0.5,1,1.5,2' | split: ',' %}
-                        {% for radius in radiuses %}
-                        <label class="form-check">
-                            <div class="form-selectgroup-item">
-                                <input type="radio" 
-                                       name="theme-radius" 
-                                       value="{{ radius }}" 
-                                       class="form-check-input"
-                                       id="theme-radius-{{ radius }}"
-                                       aria-describedby="cornerRadiusHint"
-                                       {% if radius == "1" %}checked{% endif %}>
-                                <div class="form-check-label">{{ radius }}</div>
-                            </div>
-                        </label>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="mt-auto space-y">
-                <button type="button" class="btn w-100" id="reset-changes">
-                    {% include ui/icon.html icon="rotate" %}
-                    Reset changes
-                </button>
-                <a href="#" class="btn btn-primary w-100" data-bs-dismiss="offcanvas">
-                    {% include ui/icon.html icon="settings" %}
-                    Save settings
-                </a>
-            </div>
+        <!-- Color Scheme -->
+        <div class="mb-4">
+          <label class="form-label" for="colorScheme">Color scheme</label>
+          <p class="form-hint" id="colorSchemeHint">The perfect color mode for your app.</p>
+          <div class="row g-2">
+            {% for color in site.data.i4y-colors.base %}
+              <div class="col-auto">
+                <label class="form-colorinput">
+                  <input
+                    name="theme-primary"
+                    type="radio"
+                    value="{{ color.name }}"
+                    class="form-colorinput-input"
+                    id="theme-primary-{{ color.name }}"
+                    aria-describedby="colorSchemeHint"
+                    {% if color.name == 'blue' %}
+                    checked{% endif %}>
+                  <span class="form-colorinput-color" style="background-color: {{ color.value }}"></span>
+                </label>
+              </div>
+            {% endfor %}
+          </div>
         </div>
-    </form>
+
+        <!-- Font Family -->
+        <div class="mb-4">
+          <label class="form-label" for="fontFamily">Font family</label>
+          <p class="form-hint" id="fontFamilyHint">Choose the font family that fits your app.</p>
+          <div>
+            {% assign fonts = 'sans-serif,serif,monospace,comic' | split: ',' %}
+            {% for font in fonts %}
+              <label class="form-check">
+                <div class="form-selectgroup-item">
+                  <input
+                    type="radio"
+                    name="theme-font"
+                    value="{{ font }}"
+                    class="form-check-input"
+                    id="theme-font-{{ font }}"
+                    aria-describedby="fontFamilyHint"
+                    {% if font == 'sans-serif' %}
+                    checked{% endif %}>
+                  <div class="form-check-label">{{ font | capitalize }}</div>
+                </div>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Theme Base -->
+        <div class="mb-4">
+          <label class="form-label" for="themeBase">Theme base</label>
+          <p class="form-hint" id="themeBaseHint">Choose the gray shade for your app.</p>
+          <div>
+            {% assign bases = 'slate,gray,zinc,neutral,stone' | split: ',' %}
+            {% for base in bases %}
+              <label class="form-check">
+                <div class="form-selectgroup-item">
+                  <input
+                    type="radio"
+                    name="theme-base"
+                    value="{{ base }}"
+                    class="form-check-input"
+                    id="theme-base-{{ base }}"
+                    aria-describedby="themeBaseHint"
+                    {% if base == 'gray' %}
+                    checked{% endif %}>
+                  <div class="form-check-label">{{ base | capitalize }}</div>
+                </div>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Corner Radius -->
+        <div class="mb-4">
+          <label class="form-label" for="cornerRadius">Corner Radius</label>
+          <p class="form-hint" id="cornerRadiusHint">Choose the border radius factor for your app.</p>
+          <div>
+            {% assign radiuses = '0,0.5,1,1.5,2' | split: ',' %}
+            {% for radius in radiuses %}
+              <label class="form-check">
+                <div class="form-selectgroup-item">
+                  <input
+                    type="radio"
+                    name="theme-radius"
+                    value="{{ radius }}"
+                    class="form-check-input"
+                    id="theme-radius-{{ radius }}"
+                    aria-describedby="cornerRadiusHint"
+                    {% if radius == "1" %}
+                    checked{% endif %}>
+                  <div class="form-check-label">{{ radius }}</div>
+                </div>
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-auto space-y">
+        <button
+          type="button"
+          class="btn w-100"
+          id="reset-changes">
+          {% include ui/icon.html icon="rotate" %}
+          Reset changes
+        </button>
+        <a
+          href="#"
+          class="btn btn-primary w-100"
+          data-bs-dismiss="offcanvas">
+          {% include ui/icon.html icon="settings" %}
+          Save settings
+        </a>
+      </div>
+    </div>
+  </form>
 </div>
