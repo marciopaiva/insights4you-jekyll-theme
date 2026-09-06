@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0]
+
+### Added
+- **Blog**: `_layouts/post.html` and a card-based blog listing pattern (see the example site's `pages/blog.html`) - the theme previously had no working blog at all.
+- **Local Projects**: the "Local Projects" section of `utils/projects.html` was a static empty placeholder; it now renders real cards from a site's `projects` collection (`name`, `tools`, `image`, `description`, `external_url`), alongside the existing auto-generated GitHub-starred-repos grid.
+- **Comments**: optional Giscus (GitHub Discussions) comments on posts, via `_includes/utils/comments.html` and a `giscus:` block in `_config.yml`.
+- **i18n**: `_data/i4y-strings.yml` makes every hardcoded UI string (project page headings, empty/error states, search placeholder) overridable by a consuming site.
+- **Instant search**: `_includes/utils/search.html`, a dependency-free client-side filter over any card grid - closes the gap with the long-standing "Search Functionality" feature claim in the README, which was never actually implemented.
+- Simple tags page pattern (groups posts by `site.tags`).
+
+### Fixed
+- `_layouts/error.html` never actually read `_data/i4y-errors.json`: it referenced an undefined `errors` variable, and separately indexed it with an unconverted integer front-matter value against string JSON keys. Error pages always fell back to generic text/icon instead of the configured copy and illustration.
+- `_includes/ui/button.html` built internal links with `site.base`, a variable that doesn't exist anywhere in the theme, producing `href="//path"` (a protocol-relative URL pointing at a fake host) for every internal button. Switched to the `relative_url` filter.
+- `_sass/bootstrap/scss/vendor/_rfs.scss` was missing from the vendored Bootstrap 5.3.3 copy, so `bundle exec jekyll build` failed on **every** site using this theme with a real Sass compiler. Root cause: `.gitignore` had a bare `vendor/` entry, which ignores a folder named `vendor` at *any* depth, not just the repo root - it was silently dropping this file from every commit. Fixed to `/vendor/`.
+- README badge pointed at a non-existent `.github/workflows/gem-build.yml` (the real file is `gem.yml`).
+- `spec.description` in the gemspec was `File.read('README.md')`, so the RubyGems.org listing showed raw Markdown/HTML instead of a normal description.
+- `example-site/about.markdown` and `pages/blog.html` used `layout: home` / `layout: post`, neither of which existed in the theme - both silently rendered without any layout at all.
+- `example-site/pages/404.html` rendered its error illustration twice (once via the layout, once via an extra include in the page body).
+- `example-site/_config.yml` set `theme:` and `remote_theme:` at the same time, and used a `github: user:` key that `jekyll-github-metadata` doesn't recognize (the real key is `repository:`).
+
+### Changed
+- `spec.files` in the gemspec no longer packages the vendored Bootstrap's JS source or `package.json` - only the `.scss` partials Jekyll actually needs, and the Bootstrap `LICENSE` for compliance. Shrinks the published gem.
+- README rewritten to document what the theme actually does today (including the GitHub Pages native-build incompatibility and the GitHub Actions deploy workaround), replacing several `[WIP]` sections and one feature claim ("Search Functionality") that had never been implemented.
+- Removed `docs/` - it described a considerably more elaborate, never-implemented version of the projects feature (a separate fetch script, on-disk cache, dedicated local-projects collection). Superseded by the simpler real implementation, now documented in the README.
+
 ## [0.4.0]
 
 ### Added
@@ -104,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
+[0.5.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.2...v0.2.3
