@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.2]
+
+### Fixed
+- `_includes/utils/comments.html`: Giscus never actually followed the site's dark/light mode. Its `data-theme` was baked at Jekyll build time from `page.layout-dark`/`site.layout-dark`, which has nothing to do with this theme's actual runtime dark mode (toggled client-side via the settings panel, persisted under the `tabler-theme` localStorage key and the `theme-dark` body class); the widget therefore always rendered with `data-theme="light"`. The existing `postMessage`-based sync for later toggles was also racing the async `giscus.app/client.js` load and silently doing nothing on the very first paint. Fixed by building the `<script>` tag client-side and computing the real theme (checking the `dark`/`theme-dark` classes, then the `tabler-theme`/`theme` localStorage keys, then `prefers-color-scheme`) at the moment the widget is created.
+
 ## [0.5.1]
 
 ### Fixed
@@ -134,6 +139,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
+[0.5.2]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.3.0...v0.4.0

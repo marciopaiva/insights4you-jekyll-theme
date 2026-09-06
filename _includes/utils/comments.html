@@ -1,16 +1,50 @@
 {% if site.giscus.enabled and site.giscus.repo and site.giscus.repo_id and site.giscus.category_id %}
-<div class="mt-5" id="giscus-comments">
-  <script src="https://giscus.app/client.js"
-    data-repo="{{ site.giscus.repo }}"
-    data-repo-id="{{ site.giscus.repo_id }}"
-    data-category="{{ site.giscus.category | default: 'Comments' }}"
-    data-category-id="{{ site.giscus.category_id }}"
-    data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="{% if page.layout-dark or site.layout-dark %}dark{% else %}light{% endif %}"
+<div class="mt-5" id="giscus-comments"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    {%- comment -%}
+      The site's dark mode is decided at runtime (localStorage / system
+      preference, see custom.js) - it can't be known at Jekyll build time.
+      Building the giscus <script> tag here (instead of baking data-theme
+      via Liquid) lets us read the real theme at the moment the widget is
+      created, so it doesn't flash light and depend on a racy postMessage
+      sync against the not-yet-loaded giscus iframe.
+    {%- endcomment -%}
+    function giscusTheme() {
+      {%- comment -%}
+        Can't rely on the 'dark'/'theme-dark' classes alone: this partial
+        sits inside {{ content }}, which is rendered before custom.js's
+        <script> tags in base.html, so its DOMContentLoaded listener (the
+        one that applies those classes from localStorage) may still run
+        after this one. Check the same source of truth directly instead.
+      {%- endcomment -%}
+      if (document.documentElement.classList.contains('dark') || document.body.classList.contains('theme-dark')) return 'dark';
+      {%- comment -%}
+        'tabler-theme' is the key the settings panel actually persists
+        (see updateThemeMode/checkItems in custom.js) and the one that
+        controls the real page background via the 'theme-dark' body class.
+        'theme' is a separate, older key that only toggles a 'dark' class
+        on <html> with no visual effect of its own - check both anyway
+        since either could theoretically be set.
+      {%- endcomment -%}
+      var stored = localStorage.getItem('tabler-theme') || localStorage.getItem('theme');
+      if (stored === 'dark') return 'dark';
+      if (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+      return 'light';
+    }
+
+    var script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '{{ site.giscus.repo }}');
+    script.setAttribute('data-repo-id', '{{ site.giscus.repo_id }}');
+    script.setAttribute('data-category', '{{ site.giscus.category | default: "Comments" }}');
+    script.setAttribute('data-category-id', '{{ site.giscus.category_id }}');
+    script.setAttribute('data-mapping', '{{ site.giscus.mapping | default: "pathname" }}');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'bottom');
+    script.setAttribute('data-theme', giscusTheme());
     {%- comment -%}
       giscus.app only supports a specific, short list of locale codes
       (e.g. "pt", not "pt-BR") - it 404s on anything else. site.lang/
@@ -18,16 +52,11 @@
       IETF tag, so let a site pin the exact code giscus expects via
       site.giscus.lang instead of assuming it matches.
     {%- endcomment -%}
-    data-lang="{{ site.giscus.lang | default: page.lang | default: site.lang | default: 'en' }}"
-    crossorigin="anonymous"
-    async>
-  </script>
-</div>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    function giscusTheme() {
-      return (document.documentElement.classList.contains('dark') || document.body.classList.contains('theme-dark')) ? 'dark' : 'light';
-    }
+    script.setAttribute('data-lang', '{{ site.giscus.lang | default: page.lang | default: site.lang | default: "en" }}');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+    document.getElementById('giscus-comments').appendChild(script);
+
     function sendGiscusTheme() {
       var iframe = document.querySelector('iframe.giscus-frame');
       if (!iframe) return;
