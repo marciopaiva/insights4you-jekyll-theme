@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.3]
+
+### Fixed
+- `_layouts/default.html`: pages with `layout-wrapper-full: true` (every blog post, via the `posts` collection default) rendered a Bootstrap `.row` directly inside `.page-body` with no `.container` around it. The row's default negative horizontal margins had no container padding to cancel them out, pushing content past the viewport edge and causing a persistent horizontal scrollbar on every post. Wrapped the row in a `container-xl`, matching the non-full-width branch.
+
 ## [0.5.2]
 
 ### Fixed
@@ -139,6 +144,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
+[0.5.3]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.4.0...v0.5.0
