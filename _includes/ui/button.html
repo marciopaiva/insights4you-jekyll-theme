@@ -13,7 +13,7 @@
 	{% if include.external %}
 		{% assign href = include.href %}
 	{% else %}
-		{% assign href = site.base | append: '/' | append: include.href %}
+		{% assign href = include.href | relative_url %}
 	{% endif %}
 {% endif %}
 
