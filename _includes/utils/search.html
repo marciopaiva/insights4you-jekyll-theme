@@ -1,0 +1,33 @@
+{%- comment -%}
+  Client-side instant filter over an existing card grid - no build step,
+  no JSON index, no server. Filters by the rendered text of each direct
+  child of `include.target`.
+
+  Usage: {% include utils/search.html target=".row-cards" placeholder="Search posts..." %}
+  Place it right above the element matched by `target`.
+{%- endcomment -%}
+<div class="mb-3">
+  <input
+    type="search"
+    class="form-control"
+    data-i4y-search-target="{{ include.target | default: '.row-cards' }}"
+    placeholder="{{ include.placeholder | default: site.data.i4y-strings.search.placeholder | default: 'Search...' }}"
+    aria-label="{{ include.placeholder | default: site.data.i4y-strings.search.placeholder | default: 'Search...' }}">
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-i4y-search-target]').forEach(function (input) {
+      var container = document.querySelector(input.dataset.i4ySearchTarget);
+      if (!container) return;
+      var items = Array.prototype.slice.call(container.children);
+      input.addEventListener('input', function () {
+        var query = input.value.trim().toLowerCase();
+        items.forEach(function (item) {
+          var matches = !query || item.textContent.toLowerCase().indexOf(query) !== -1;
+          item.hidden = !matches;
+        });
+      });
+    });
+  });
+</script>

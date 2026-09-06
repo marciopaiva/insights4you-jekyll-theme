@@ -27,3 +27,6 @@ empty:
 error:
   default_header: "Oops… You just found an error page"
   home_button: "Take me home"
+
+search:
+  placeholder: "Search..."

@@ -16,6 +16,7 @@ permalink: /blog/
 <main class="page-body">
   <div class="container-xl">
     {% if site.posts and site.posts.size > 0 %}
+      {% include utils/search.html target=".row-cards" placeholder="Search posts..." %}
       <div class="row row-cards">
         {% for post in site.posts %}
           <div class="col-md-6 col-lg-4">
