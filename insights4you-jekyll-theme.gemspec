@@ -5,7 +5,7 @@ require 'date'
 Gem::Specification.new do |spec|
   # Basic Information
   spec.name          = "insights4you-jekyll-theme"
-  spec.version       = "0.5.0"
+  spec.version       = "0.5.1"
   spec.platform      = Gem::Platform::RUBY
   spec.date          = Time.now.strftime('%Y-%m-%d')
   spec.authors       = ["Marcio Paiva Barbosa"]

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1]
+
+### Fixed
+- Giscus comments never rendered on sites whose `lang`/`giscus.lang` used a regional IETF tag (e.g. `pt-BR`) instead of a bare language code: giscus.app 404s on `/pt-BR/widget` (only `/pt/widget` exists), and the resulting error page's own CSP blocks the browser from ever showing it inside the iframe - so the whole widget silently disappeared. Found by actually testing Giscus end-to-end after enabling it on a real site. Added `site.giscus.lang` so a site can pin the exact code giscus expects, independent of its real `lang`.
+
 ## [0.5.0]
 
 ### Added
@@ -129,6 +134,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **N/A**: No files or features were removed in this release.
 
 
+[0.5.1]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/marciopaiva/insights4you-jekyll-theme/compare/v0.2.3...v0.3.0
