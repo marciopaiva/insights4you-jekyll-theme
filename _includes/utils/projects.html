@@ -66,12 +66,18 @@
                 </div>
 
                 <!-- Repository Stats -->
+                {% assign stars_label = i18n.stars | default: "Stars" %}
+                {% assign watchers_label = i18n.watchers | default: "Watchers" %}
+                {% assign forks_label = i18n.forks | default: "Forks" %}
+                {% assign issues_label = i18n.issues | default: "Issues" %}
                 <div class="row row-cards text-center m-1">
                   <div class="col-md-3">
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">{{ i18n.stars | default: "Stars" }}</div>
+                          <div class="subheader" title="{{ stars_label }}" aria-label="{{ stars_label }}">
+                            {% include ui/icon.html icon="star" size="sm" %}
+                          </div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.stargazers_count | default: 0 }}
@@ -85,7 +91,9 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">{{ i18n.watchers | default: "Watchers" }}</div>
+                          <div class="subheader" title="{{ watchers_label }}" aria-label="{{ watchers_label }}">
+                            {% include ui/icon.html icon="eye" size="sm" %}
+                          </div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.watchers_count | default: 0 }}
@@ -99,7 +107,9 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">{{ i18n.forks | default: "Forks" }}</div>
+                          <div class="subheader" title="{{ forks_label }}" aria-label="{{ forks_label }}">
+                            {% include ui/icon.html icon="git-fork" size="sm" %}
+                          </div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.forks_count | default: 0 }}
@@ -113,7 +123,9 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">{{ i18n.issues | default: "Issues" }}</div>
+                          <div class="subheader" title="{{ issues_label }}" aria-label="{{ issues_label }}">
+                            {% include ui/icon.html icon="circle-dot" size="sm" %}
+                          </div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.open_issues_count | default: 0 }}
