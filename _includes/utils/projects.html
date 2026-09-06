@@ -158,21 +158,43 @@
     {% endif %}
 
     <!-- Local Projects -->
-    <div class="row row-cards my-3">
-
-      <div class="col-md-6 col-lg-6">
-        <article class="card h-100">
-          <!-- Repository Icon -->
-          <div class="card-stamp">
-            <div class="card-stamp-icon bg-primary">
-              {% include ui/icon.html icon="brand-github" color="currentColor" size="48" class="img-fluid" loading="lazy" alt="GitHub Repository Icon" %}
-            </div>
+    {% if site.projects and site.projects.size > 0 %}
+      <h2 class="mt-4 mb-3">Local Projects</h2>
+      <div class="row row-cards my-3">
+        {% for project in site.projects %}
+          <div class="col-md-6 col-lg-6">
+            <article class="card h-100">
+              {% if project.image %}
+                <img src="{{ project.image }}" class="card-img-top" alt="{{ project.name | escape }}" loading="lazy">
+              {% endif %}
+              <div class="card-body">
+                <h3 class="card-title">{{ project.name | escape }}</h3>
+                {% if project.tools and project.tools.size > 0 %}
+                  <div class="mb-2">
+                    {% for tool in project.tools %}
+                      <span class="badge badge-outline mx-1">{{ tool }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% if project.description %}
+                  <p class="text-muted">{{ project.description }}</p>
+                {% endif %}
+              </div>
+              <div class="card-footer">
+                {% if project.external_url %}
+                  {% assign project_link = project.external_url %}
+                  {% assign project_is_external = true %}
+                {% else %}
+                  {% assign project_link = project.url %}
+                  {% assign project_is_external = false %}
+                {% endif %}
+                {% include ui/button.html href=project_link external=project_is_external block=true color="text-primary" class="bg-primary-lt" text="View Project" icon="arrow-right" %}
+              </div>
+            </article>
           </div>
-
-        </article>
+        {% endfor %}
       </div>
-
-    </div>
+    {% endif %}
   </div>
 </main>
 

@@ -1,0 +1,26 @@
+---
+layout: default
+body-class: border-top-wide border-primary
+---
+
+<article>
+  <header class="mb-4">
+    <h1>{{ page.title | escape }}</h1>
+    <div class="text-muted">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %d, %Y" }}</time>
+      {% if page.tags and page.tags.size > 0 %}
+        {% for tag in page.tags %}
+          <span class="badge badge-outline mx-1">{{ tag }}</span>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="markdown">
+    {{ content }}
+  </div>
+</article>
+
+{% if site.giscus.enabled and page.comments %}
+  {% include utils/comments.html %}
+{% endif %}
