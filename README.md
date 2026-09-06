@@ -7,7 +7,7 @@ A sleek and modern Jekyll theme inspired by the [Tabler Admin Dashboard](https:/
 ![Theme Preview](assets/images/preview-dark.png)
 
 [![last commit](https://img.shields.io/github/last-commit/marciopaiva/insights4you-jekyll-theme?logo=github)][repo]
-[![gem build](https://github.com/marciopaiva/insights4you-jekyll-theme/actions/workflows/gem-build.yml/badge.svg)][build]
+[![gem build](https://github.com/marciopaiva/insights4you-jekyll-theme/actions/workflows/gem.yml/badge.svg)][build]
 [![codacy badge](https://img.shields.io/codacy/grade/4e556876a3c54d5e8f2d2857c4f43894?logo=codacy)][codacy]
 [![gem version](https://img.shields.io/gem/v/insights4you-jekyll-theme?&logo=rubygems&logoColor=ghostwhite&label=gem&color=orange)][gem]
 [![downloads](https://img.shields.io/gem/dt/insights4you-jekyll-theme?logo=rubygems&color=blue)][gem]
@@ -130,7 +130,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - All contributors who help improve this theme
 
 [repo]: https://github.com/marciopaiva/insights4you-jekyll-theme
-[build]: https://github.com/marciopaiva/insights4you-jekyll-theme/actions/workflows/gem-build.yml
+[build]: https://github.com/marciopaiva/insights4you-jekyll-theme/actions/workflows/gem.yml
 [codacy]: https://app.codacy.com/gh/marciopaiva/insights4you-jekyll-theme/dashboard
 [gem]: https://rubygems.org/gems/insights4you-jekyll-theme
 [license]: https://github.com/marciopaiva/insights4you-jekyll-theme/blob/master/LICENSE

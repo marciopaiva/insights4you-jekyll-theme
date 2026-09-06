@@ -8,10 +8,10 @@ description         : >-                                                  # this
   Google search results) and in your feed.xml site description.
 baseurl             : ""                                                  # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
 url                 : ""                                                  # the base hostname & protocol for your site, e.g. http://example.com
-remote_theme        : insights4you-jekyll-theme                           # Change to your theme repository if you are using a fork
 theme               : insights4you-jekyll-theme
 keywords            : "your, keywords"
 lang                : "en"
+repository          : "marciopaiva/insights4you-jekyll-theme"             # NWO used by jekyll-github-metadata
 
 ### Theme Settings ###
 markdown            : kramdown
@@ -19,9 +19,6 @@ layout-dark         : false
 themeColor          : "#206bc4"
 useIconfont         : false
 
-### GitHub Projects ###
-github:
-  user: marciopaiva
 
 ### Author Info ###
 author:

@@ -13,11 +13,14 @@ Gem::Specification.new do |spec|
 
   # Descriptions
   spec.summary       = "A sleek and modern Jekyll theme inspired by the Tabler Admin Dashboard."
-  spec.description   = File.read('README.md') rescue spec.summary
+  spec.description   = "A sleek and modern Jekyll theme inspired by the Tabler Admin Dashboard, with dark/light mode, GitHub-powered project cards, and a customizable Theme Builder panel."
   spec.homepage      = "https://github.com/marciopaiva/insights4you-jekyll-theme"
   spec.license       = "MIT"
 
   # Files Management - More efficient file selection
+  # Only .scss partials are needed from the vendored Bootstrap source (Jekyll
+  # never touches its .js/package.json), so exclude those to keep the
+  # published gem lean.
   spec.files = Dir.glob(%w[
     {assets,_includes,_layouts,_sass,_data}/**/*
     LICENSE*
@@ -25,6 +28,7 @@ Gem::Specification.new do |spec|
     CHANGELOG*
     *.gemspec
   ]).select { |f| File.file?(f) }
+    .reject { |f| f.start_with?('_sass/bootstrap/') && !f.end_with?('.scss', 'LICENSE') }
 
   # Ruby Version Requirement
   spec.required_ruby_version = ">= 3.2.2"
