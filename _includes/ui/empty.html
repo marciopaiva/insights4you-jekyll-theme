@@ -11,12 +11,12 @@
 	{% endif %}
 
 
-	<p class="empty-title">{{ include.title | default: "No results found" }}</p>
+	<p class="empty-title">{{ include.title | default: site.data.i4y-strings.empty.title | default: "No results found" }}</p>
 	<p class="empty-subtitle text-secondary">
-		{{ include.subtitle | default: "Try adjusting your search or filter to find what you're looking for." }}
+		{{ include.subtitle | default: site.data.i4y-strings.empty.subtitle | default: "Try adjusting your search or filter to find what you're looking for." }}
 	</p>
 	<div class="empty-action">
-		{% assign button-text = include.button-text | default: "Search again" %}
+		{% assign button-text = include.button-text | default: site.data.i4y-strings.empty.button_text | default: "Search again" %}
 		{% assign button-icon = include.button-icon | default: "search" %}
 		{% include ui/button.html text=button-text color="primary" icon=button-icon href="." %}
 	</div>

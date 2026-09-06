@@ -1,8 +1,10 @@
+{% assign i18n = site.data.i4y-strings.projects %}
+
 <header class="hero" role="banner">
   <div class="container">
-    <h1 class="hero-title">Projects</h1>
+    <h1 class="hero-title">{{ i18n.title | default: "Projects" }}</h1>
     <p class="hero-description mt-1">
-      Here you'll find a collection of my projects, experiments, and learning.
+      {{ i18n.description | default: "Here you'll find a collection of my projects, experiments, and learning." }}
     </p>
   </div>
 </header>
@@ -58,7 +60,7 @@
                         <span class="badge badge-outline mx-1">+{{ repo.topics.size | minus: topic_limit }}</span>
                       {% endif %}
                     {% else %}
-                      <span class="badge badge-outline mx-1">Uncategorized</span>
+                      <span class="badge badge-outline mx-1">{{ i18n.uncategorized | default: "Uncategorized" }}</span>
                     {% endif %}
                   </div>
                 </div>
@@ -69,7 +71,7 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">Stars</div>
+                          <div class="subheader">{{ i18n.stars | default: "Stars" }}</div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.stargazers_count | default: 0 }}
@@ -83,7 +85,7 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">Watchers</div>
+                          <div class="subheader">{{ i18n.watchers | default: "Watchers" }}</div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.watchers_count | default: 0 }}
@@ -97,7 +99,7 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">Forks</div>
+                          <div class="subheader">{{ i18n.forks | default: "Forks" }}</div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.forks_count | default: 0 }}
@@ -111,7 +113,7 @@
                     <div class="card">
                       <div class="card-body">
                         <div class="align-items-center">
-                          <div class="subheader">Issues</div>
+                          <div class="subheader">{{ i18n.issues | default: "Issues" }}</div>
                           <div class="ms-auto lh-1">
                             <div class="badge badge-outline my-1">
                               {{ repo.open_issues_count | default: 0 }}
@@ -129,14 +131,15 @@
                     {% if repo.description %}
                       {{ repo.description | escape | truncate: 150 }}
                     {% else %}
-                      <span class="text-muted">No description available</span>
+                      <span class="text-muted">{{ i18n.no_description | default: "No description available" }}</span>
                     {% endif %}
                   </div>
                 </div>
 
                 <!-- Repository Link -->
                 <div class="card-footer">
-                  {% include ui/button.html href=repo.html_url external=true block=true color="text-primary" class="bg-primary-lt" icon="eye" icon-only=include.icon-only text="View Repository" aria-label="View Repository on GitHub" %}
+                  {% assign view_repository_text = i18n.view_repository | default: "View Repository" %}
+                  {% include ui/button.html href=repo.html_url external=true block=true color="text-primary" class="bg-primary-lt" icon="eye" icon-only=include.icon-only text=view_repository_text aria-label="View Repository on GitHub" %}
                 </div>
               </article>
             </div>
@@ -144,22 +147,22 @@
         {% else %}
           <div class="col-12">
             <div class="alert alert-info">
-              <h3>No starred repositories found</h3>
-              <p>Repositories with at least one star will appear here.</p>
+              <h3>{{ i18n.no_starred_title | default: "No starred repositories found" }}</h3>
+              <p>{{ i18n.no_starred_description | default: "Repositories with at least one star will appear here." }}</p>
             </div>
           </div>
         {% endif %}
       </div>
     {% else %}
       <div class="alert alert-warning">
-        <h3>Unable to load repositories</h3>
-        <p>There was a problem fetching the repository data. Please try again later.</p>
+        <h3>{{ i18n.unable_to_load_title | default: "Unable to load repositories" }}</h3>
+        <p>{{ i18n.unable_to_load_description | default: "There was a problem fetching the repository data. Please try again later." }}</p>
       </div>
     {% endif %}
 
     <!-- Local Projects -->
     {% if site.projects and site.projects.size > 0 %}
-      <h2 class="mt-4 mb-3">Local Projects</h2>
+      <h2 class="mt-4 mb-3">{{ i18n.local_projects | default: "Local Projects" }}</h2>
       <div class="row row-cards my-3">
         {% for project in site.projects %}
           <div class="col-md-6 col-lg-6">
@@ -188,7 +191,8 @@
                   {% assign project_link = project.url %}
                   {% assign project_is_external = false %}
                 {% endif %}
-                {% include ui/button.html href=project_link external=project_is_external block=true color="text-primary" class="bg-primary-lt" text="View Project" icon="arrow-right" %}
+                {% assign view_project_text = i18n.view_project | default: "View Project" %}
+                {% include ui/button.html href=project_link external=project_is_external block=true color="text-primary" class="bg-primary-lt" text=view_project_text icon="arrow-right" %}
               </div>
             </article>
           </div>

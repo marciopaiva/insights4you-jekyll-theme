@@ -1,0 +1,29 @@
+# UI strings used by theme includes/layouts. Override this whole file in
+# your own site's _data/i4y-strings.yml to translate the theme (Jekyll site
+# data takes precedence over the theme's bundled data file of the same name).
+
+projects:
+  title: "Projects"
+  description: "Here you'll find a collection of my projects, experiments, and learning."
+  unable_to_load_title: "Unable to load repositories"
+  unable_to_load_description: "There was a problem fetching the repository data. Please try again later."
+  no_starred_title: "No starred repositories found"
+  no_starred_description: "Repositories with at least one star will appear here."
+  uncategorized: "Uncategorized"
+  stars: "Stars"
+  watchers: "Watchers"
+  forks: "Forks"
+  issues: "Issues"
+  no_description: "No description available"
+  view_repository: "View Repository"
+  local_projects: "Local Projects"
+  view_project: "View Project"
+
+empty:
+  title: "No results found"
+  subtitle: "Try adjusting your search or filter to find what you're looking for."
+  button_text: "Search again"
+
+error:
+  default_header: "Oops… You just found an error page"
+  home_button: "Take me home"
