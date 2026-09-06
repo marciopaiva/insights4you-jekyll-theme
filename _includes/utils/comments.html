@@ -11,7 +11,14 @@
     data-emit-metadata="0"
     data-input-position="bottom"
     data-theme="{% if page.layout-dark or site.layout-dark %}dark{% else %}light{% endif %}"
-    data-lang="{{ page.lang | default: site.lang | default: 'en' }}"
+    {%- comment -%}
+      giscus.app only supports a specific, short list of locale codes
+      (e.g. "pt", not "pt-BR") - it 404s on anything else. site.lang/
+      page.lang are meant for the HTML lang attribute and can be a full
+      IETF tag, so let a site pin the exact code giscus expects via
+      site.giscus.lang instead of assuming it matches.
+    {%- endcomment -%}
+    data-lang="{{ site.giscus.lang | default: page.lang | default: site.lang | default: 'en' }}"
     crossorigin="anonymous"
     async>
   </script>
